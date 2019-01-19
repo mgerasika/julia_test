@@ -1,4 +1,4 @@
- console.log("hi 1");
+ console.log("hi 2");
  var kate = {name : 'kate', age : 11, favouriteColor : ['black', 'yellow']};
  var mary = {name : 'mary', age : 13, favouriteColor : ['green' , 'broun', 'white']};
  var nina = {name : 'nina', age : 10, favouriteColor : ['yellow' , 'red', 'purple']};
