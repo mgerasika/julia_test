@@ -64,3 +64,4 @@ console.log(scores);
  var tmp1 = tmp[2];
  console.log(tmp1)
  var tmp2 = tmp1.number;
+ console.log(tmp2);
