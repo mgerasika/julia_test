@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Виселица</title>
+</head>
+<body>
+    <h1>Виселица:)</h1>
+
+ <script async>
+    //var name = prompt('яе тебе звати?');
+   // console.log('привіт, ' + name);
+
+
+    //var likeCats = confirm ('Тобі подобаються котики?');
+     //if (likeCats) {
+      //  console.log ('мені теж вони подобаються');
+    //}
+    //else {
+       // console.log('знатить ти любитель песиків');
+    //}
+   
+
+     //alert('hallo!');
+
+
+    var words = [
+        'рибка',
+        'годинник',
+        'машина',
+        'крокодил',
+        'троянда',
+        'динозавр'
+    ];
+
+    var word = words [Math.floor(Math.random() * words.length)];
+    
+    var answerArray = [];
+    for (var i=0; i < word.length; i++) {
+        answerArray[i]='_';
+    }
+
+    var remaingLetters = word.length;
+
+    while (remaingLetters > 0) {
+     alert (answerArray.join(' '));
+        var guess = prompt ( 'Відгадайте букву або натисніть Cansle для виходу з гри.');
+        if (guess === null) {
+            break;
+        } else if ( guess.length !== 1) {
+            alert ('Введіть лише одну букву.');
+        } else {
+            for (var j =0; j < word.length; j++) {
+                if (word[j] === guess) {
+                    answerArray[j] = guess;
+                    remaingLetters--;
+                }
+            }
+        }
+    }
+    alert(answerArray.join(' '));
+    alert('Загадане слово - ' + word);
+    
+</script>
+</body>
+</html>
