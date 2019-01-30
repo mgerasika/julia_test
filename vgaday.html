@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Вгадай</title>
+</head>
+<body>
+    <h1>Вгадай:)</h1>
+
+
+<script async>
+var number = Math.floor(Math.random()*10);
+
+var count = 0;
+while (true) 
+{
+    if(count >=3) {
+        alert('Ліміт кількості спроб' );
+        break;
+    }
+    var test = prompt ('Відгадай цифру');
+    test = parseInt(test,10);
+    //alert (test);
+    if (test>number) {
+        alert ('загадане число менше від Вашого');
+    } 
+    else if (test<number) {
+        alert ('загадане число більше від Вашого');
+    } else if(test == number)  {
+        alert('Ви вгадали число :) ' + number );
+        break
+    }  
+    count++;
+}
+            
+</script>
+
+</body>
+</html>
+
+

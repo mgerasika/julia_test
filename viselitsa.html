@@ -41,26 +41,82 @@
     }
 
     var remaingLetters = word.length;
+    var numberTest =0;
 
-    while (remaingLetters > 0) {
-     alert (answerArray.join(' '));
+    while (remaingLetters > 0 ) {
+        alert (answerArray.join(' '));
+
         var guess = prompt ( 'Відгадайте букву або натисніть Cansle для виходу з гри.');
+        guess = guess.toLowerCase(); 
+        if (numberTest === 5) {
+            alert ('кількість спроб завершена');
+        }
+
         if (guess === null) {
-            break;
+            break ;
         } else if ( guess.length !== 1) {
             alert ('Введіть лише одну букву.');
-        } else {
-            for (var j =0; j < word.length; j++) {
+        } 
+        else {
+            var success = false;
+            for (var j         =0; j < word.length; j++) {
                 if (word[j] === guess) {
+                    success = true;
                     answerArray[j] = guess;
                     remaingLetters--;
                 }
+            } 
+            
+            if(success ) {
+                alert('Є така буква')
             }
-        }
+            else {
+                numberTest++;                
+            }
+
+
+        
     }
+    
     alert(answerArray.join(' '));
     alert('Загадане слово - ' + word);
     
 </script>
+
+<script>
+
+var word1=[5,4,7,2,3,1,5,9];
+var min = word1[0];
+
+for (var a=0; a < word1.length ; a++ ) {
+    if (word1[a] < min) {
+        min=word1[a];
+       
+    }
+}
+alert(min);
+</script>
+
+<script>
+var numbers = [5,7,3,2,1,4,8,9,7];
+var number = numbers [Math.floor(Math.random()* numbers.length)];
+
+var test = prompt ('Відгадай цифру');
+test = parseInt(test,10);
+while (true) {
+    alert (test);
+    if (test<number) {
+        alert ('загадане число менше від Вашого');
+    } else if (test>number) {
+        alert ('загадане число більше від Вашого');
+    } else {
+        break
+    }
+}
+alert('Ви вгадали число :) ' + number );
+</script>
+
 </body>
 </html>
+
+
