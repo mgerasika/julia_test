@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>рейтинг студентів</title>
+</head>
+<body>
+<script async>
+
+   var history = {bal : 66 ,k : 3};
+   var chemistry = {bal : 86 ,k : 5};
+   var english = {bal : 53 ,k : 2};
+   var match = {bal : 91 ,k : 4};
+
+var subjects =[history, chemistry, english, match];
+
+console.log (subjects[0].bal);
+
+var balk =0;
+var chyselnyk =0;
+var znamennyk = subjects.length;
+
+for (i=0; i<subjects.length;i++) {
+    balk= subjects[i].bal * subjects[i].k;
+    chyselnyk +=balk;
+}
+var rating = chyselnyk/znamennyk;
+alert ('Ваш рейтинг - ' + rating);
+
+</script>
+</body>
+</html>

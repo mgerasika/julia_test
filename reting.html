@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>рейтинг студентів</title>
+</head>
+<body>
+<script async>
+var subjects =[
+   {name : 'history' , bal : 0 ,k : 3},
+   {name : 'chemistry', bal : 0 ,k : 5},
+   {name : 'english' ,bal : 0 ,k : 2},
+   {name : 'match' ,bal : 0 ,k : 4}
+   ];
+
+for (var f=0; f<subjects.length; f++) {
+    var answer = prompt ('введіть Ваш бал з ' + subjects[f].name);
+    while (answer > 100 || answer < 1 ) {
+        alert ('Бал повинен бути в межах 1 - 100 , введіть вірне значення!');
+        answer = prompt ('введіть Ваш бал з ' + subjects[f].name);
+    }
+}
+
+var balk =0;
+var chyselnyk =0;
+var znamennyk = 0;
+
+for (var i=0,len = subjects.length;i<len;i++) {
+    balk= subjects[i].bal * subjects[i].k;
+    chyselnyk +=balk;
+    znamennyk += subjects[i].k;
+};
+
+
+
+var rating = chyselnyk/znamennyk;
+alert ('Ваш рейтинг - ' + rating);
+
+</script>
+</body>
+</html>
