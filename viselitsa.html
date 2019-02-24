@@ -1,122 +1,150 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Виселица</title>
 </head>
+
 <body>
     <h1>Виселица:)</h1>
 
- <script async>
-    //var name = prompt('яе тебе звати?');
-   // console.log('привіт, ' + name);
+    <script>
+        //var name = prompt('яе тебе звати?');
+        // console.log('привіт, ' + name);
 
 
-    //var likeCats = confirm ('Тобі подобаються котики?');
-     //if (likeCats) {
-      //  console.log ('мені теж вони подобаються');
-    //}
-    //else {
-       // console.log('знатить ти любитель песиків');
-    //}
-   
-
-     //alert('hallo!');
+        //var likeCats = confirm ('Тобі подобаються котики?');
+        //if (likeCats) {
+        //  console.log ('мені теж вони подобаються');
+        //}
+        //else {
+        // console.log('знатить ти любитель песиків');
+        //}
 
 
-    var words = [
-        'рибка',
-        'годинник',
-        'машина',
-        'крокодил',
-        'троянда',
-        'динозавр'
-    ];
+        //alert('hallo!');
 
-    var word = words [Math.floor(Math.random() * words.length)];
-    
-    var answerArray = [];
-    for (var i=0; i < word.length; i++) {
-        answerArray[i]='_';
-    }
 
-    var remaingLetters = word.length;
-    var numberTest =0;
+        var words = [
+            'рибка',
+            'годинник',
+            'машина',
+            'крокодил',
+            'троянда',
+            'динозавр'
+        ];
 
-    while (remaingLetters > 0 ) {
-        alert (answerArray.join(' '));
-
-        var guess = prompt ( 'Відгадайте букву або натисніть Cansle для виходу з гри.');
-        guess = guess.toLowerCase(); 
-        if (numberTest === 5) {
-            alert ('кількість спроб завершена');
+        function randomWord(words) {
+            var word = words[Math.floor(Math.random() * words.length)];
+            return word;
         }
+        var word = randomWord(words);
 
-        if (guess === null) {
-            break ;
-        } else if ( guess.length !== 1) {
-            alert ('Введіть лише одну букву.');
-        } 
-        else {
-            var success = false;
-            for (var j         =0; j < word.length; j++) {
-                if (word[j] === guess) {
-                    success = true;
-                    answerArray[j] = guess;
-                    remaingLetters--;
+        function setupAnswerArray(word) {
+            var arrayOfSymbol = [];
+            for (var i = 0; i < word.length; i++) {
+                arrayOfSymbol[i] = '_';
+            }
+            return arrayOfSymbol
+        }
+        var answerArray = setupAnswerArray(word)
+
+        var remaingLetters = word.length;
+        var numberTest = 0;
+
+        while (remaingLetters > 0) {
+            alert(answerArray.join(' '));
+
+            var guess = prompt('Відгадайте букву або натисніть Cansle для виходу з гри.');
+            guess = guess.toLowerCase();
+            if (numberTest === 5) {
+                alert('кількість спроб завершена');
+            }
+
+            if (guess === null) {
+                break;
+            } else if (guess.length !== 1) {
+                alert('Введіть лише одну букву.');
+            } else {
+                var success = false;
+                var isSameSymbol = false;
+
+                for (var j = 0; j < word.length; j++) {
+
+                    if (word[j] === guess) {
+                        success = true;
+
+                        if (answerArray[j] != '_') {
+                            isSameSymbol = true;
+                            alert('таку букву Ви вже вводили , введіть іншу букву!');
+                            break;
+                        }
+                        answerArray[j] = guess;
+                        remaingLetters--;
+                    }
                 }
-            } 
-            
-            if(success ) {
-                alert('Є така буква')
+
+                if (!isSameSymbol) {
+                    if (success) {
+                        alert('Є така буква')
+                    } else {
+                        numberTest++;
+                    }
+                }
             }
-            else {
-                numberTest++;                
-            }
+        }
+        alert(answerArray.join(' '));
+        alert('Загадане слово - ' + word);
+    </script>
 
+    //<script>
+        //var word1=[5,4,7,2,3,1,5,9];
 
-        
-    }
-    
-    alert(answerArray.join(' '));
-    alert('Загадане слово - ' + word);
-    
-</script>
+        //function findMin(word1) {
+        //    var min = word1[0];
 
-<script>
+        //   for (var a=0; a < word1.length ; a++ ) {
+        //        if (word1[a] < min) {
+        //           min=word1[a];
+        //      
+        //       }
+        //   }
+        //   return min;
+        //}
 
-var word1=[5,4,7,2,3,1,5,9];
-var min = word1[0];
+        //var min = findMin(word1);
 
-for (var a=0; a < word1.length ; a++ ) {
-    if (word1[a] < min) {
-        min=word1[a];
-       
-    }
-}
-alert(min);
-</script>
+        //alert(min);
+        //
+    </script>
 
-<script>
-var numbers = [5,7,3,2,1,4,8,9,7];
-var number = numbers [Math.floor(Math.random()* numbers.length)];
+    //<script>
+        //var numbers = [5,7,3,2,1,4,8,9,7];
 
-var test = prompt ('Відгадай цифру');
-test = parseInt(test,10);
-while (true) {
-    alert (test);
-    if (test<number) {
-        alert ('загадане число менше від Вашого');
-    } else if (test>number) {
-        alert ('загадане число більше від Вашого');
-    } else {
-        break
-    }
-}
-alert('Ви вгадали число :) ' + number );
-</script>
+        //var numbers = [];
+        //    for (var i=0; i < 10; i++) {
+        //        //numbers[i]=Math.random();
+        //        numbers.push(Math.random());
+        //    }
+        //var number = numbers [Math.floor(Math.random()* numbers.length)];
+
+        //var test = prompt ('Відгадай цифру');
+        //test = parseInt(test,10);
+        //while (true) {
+        //   alert (test);
+        //   if (test<number) {
+        //      alert ('загадане число менше від Вашого');
+        //  } else if (test>number) {
+        //      alert ('загадане число більше від Вашого');
+        //  } else {
+        //      break
+        //  }
+        //}
+        //alert('Ви вгадали число :) ' + number );
+        //
+    </script>
 
 </body>
+
 </html>
-
-

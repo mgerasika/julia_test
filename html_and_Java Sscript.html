@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>html and javascript</title>
+</head>
+
+<body onload="onload()">
+    <h1 id='main-heading'> hallo </h1>
+
+
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+    <script>
+        function onload() {
+
+            //                          ЗМІНЮЄМО ЗАГОЛОВОК ЗА ДОПОМОГОЮ DOM
+
+            //  var headingElement = document.getElementById('main-heading');
+            //  console.log(headingElement.innerHTML);
+            //  var newHeadingText = prompt('введіть новий заголовок');
+            // headingElement.innerHTML = newHeadingText;
+
+            //                         ЗМІНЮЄМО ЗАГОЛОВОК ЗА ДОПОМОГОЮ JQuery
+
+            // var newHeadingText = prompt('введіть новий заголовок');
+            // $('#main-heading').text(newHeadingText);
+
+
+
+            /*
+                        $('body').append('<p>новий параграф</p>');
+                        for (var i =0;i<5;i++) {
+                            var pets = prompt('назви домашню тваринку');
+                            $('body').append('<p>' + pets + '</p>');
+                            }
+            */
+
+
+
+            //                             АНІМАЦІЯ  ПОВІЛЬНЕ ЗНИКНЕННЯ ЗАГОЛОВКУ
+
+            //$('h1').fadeOut(3000);
+
+            //  $('h1').text('цей заголовок скоро зникне').fadeOut(3000);
+            //$('h1').fadeOut(3000).fadeIn(2000);
+
+            //                     ЗНИКНЕННЯ ЕЛЕМЕНТА З СУВАННЯМ НА ЙОГО МІСЦЕ НАСТУПНОГО ЕЛЕМЕНТУУ 
+
+            //$('h1').slideUp(2000).slideDown(2000);
+
+            //$('h1').hide(2000).show(2000);
+
+            //                                  ЗАДАЧКИ СТОРІНКА 155
+
+            //                                      ЗАДАЧКА №3
+            //$('h1').fadeOut(2000).delay(5000).fadeIn(2000);
+            //                                      задача №2
+            //var time = 1000;
+            //for (i = 0; i < 5; i++) {
+            //     $('p').fadeOut(time).fadeIn(time);
+            //     time += 1000;
+            // }
+            //                                       ЗАДАЧА №4
+            //                              ЗГАСАННЯ КОЛЬОРУ ВІД 0 ДО 1
+            //$('h1').fadeTo(1000,0);
+            //$('h1').fadeTo(1000,0.1);
+            //$('h1').fadeTo(1000,0.5);
+            // $('h1').fadeTo(1000,1);
+
+
+            //                                      ЗАДАЧА №1
+
+            $('#main-heading').text('мої друзі');
+
+            var friends = ['anna', 'jon', 'nina', 'rick'];
+            for (i = 0; i < friends.length; i++) {
+                $('body').append('<p>' + friends[i] + '</p>');
+                $('p').hide(0).delay(1000).fadeIn(2000);
+
+            }
+            $('p').append(' - найкращий друг');
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+    </script>
+
+</body>
+
+
+
+</html>

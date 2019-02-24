@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>функції</title>
+</head>
+
+<body>
+    <h1>Функції</h1>
+    <script async>
+        // var drawCats = function (howManyTimes) {
+        //    for (i=0 ; i< howManyTimes;i++) {
+        //        console.log(i + '=^.^=');
+        //    }
+        //};
+        //console.log (drawCats(6));
+
+
+        //var draw = function (howManyTimes,whatToDraw) {
+        //    for (i=0;i<howManyTimes;i++) {
+        //        console.log (i + ' '+ whatToDraw);
+        //    }
+        //};
+        //draw(6,'#');
+
+
+        //var double = function(number) {
+        //    return number * 2;
+        //};
+        //console.log (double(5)+double(2));// вертає 14
+        //console.log(double(double(2))); // вертає 8
+
+
+        //var pickRandomWord = function(words) {
+        //   return words [Math.floor(Math.random() * words.length)];
+        //};
+        //var randomWords= ['планета','воля','дерево','квітка'];
+        //console.log (pickRandomWord(randomWords));
+        //console.log(pickRandomWord(['ку ку','му му','ту ту']));
+
+
+        // перший варіант дразнилки 
+
+        //var randomBodyParts = ['око','ніс','череп'];
+        //var randomAdjectives = ['брудна','нудна','жахлива'];
+        //var randomWordss =['муха','риба','комаха'];
+
+        //var randomBodyPart = randomBodyParts[Math.floor(Math.random()*randomBodyParts.length)];
+        //var randomAdjective = randomAdjectives[Math.floor(Math.random()*randomAdjectives.length)];
+        //var randomWord = randomWordss[Math.floor(Math.random()*randomWordss.length)];
+
+        //var randomInsult = 'в тебе ' + randomBodyPart + ' як ' + randomAdjective +' ' + randomWord +'!!!';
+        //galert(randomInsult);
+
+
+        // другий варіант дразнилки з використанням функції
+
+
+        //var randomBodyParts = ['око','ніс','череп'];
+        //var randomAdjectives = ['брудна','нудна','жахлива'];
+        //var randomWordss =['муха','риба','комаха'];
+
+        //var pickRandomWord = function(words) {
+        //   return words [Math.floor(Math.random() * words.length)];
+        //};
+        //var randomInsult = 'в тебе ' +  pickRandomWord(randomBodyParts) + ' як ' + pickRandomWord(randomAdjectives) +' '
+        // + pickRandomWord(randomWordss) +'!!!';
+        //alert(randomInsult);
+
+
+
+        //var fifthLetter = function (name) {
+        //   if (name.lenght <5  ) {
+        //       return
+        //   }
+        //return ('пята буква вашого імені - ' + name[4] + '!'  )
+        //};
+        //alert( fifthLetter('аркадій'));
+        //alert(fifthLetter('катя'));
+
+
+
+        //декілька ретурній в одній функції
+
+
+        //var balFifthSystem = function (bal) {
+        //    if (bal <51 ) {
+        //        return ' у Вас 2 бали';
+        //   }
+        //   if (bal <71) {
+        //       return ' у Вас 3 бали';
+        //   }
+        //   if (bal <88) {
+        //       return ' у Вас 4 бали';
+        //   }
+
+        // return ' у 5 балів';
+        //}
+
+        // var bal = prompt('введіть Ваш бал')
+        // alert(balFifthSystem(bal));
+
+
+
+        //ЗАДАЧКИ НА ФУНКЦІЇ СТОРІНКА 140
+
+
+        //function add(num1,num2) {
+        //  return num1 +num2 ;
+        //};
+        //function multiply(num1,num2) {
+        //    var num3= num1*num2;
+        //    return num3 ;
+        //};
+        //alert( add(2,(multiply(2,2))));
+
+
+
+        //function areArraysSame(arr1,arr2) {
+        //   if (arr1.length != arr2.length) {
+        //       return false;
+        //  }
+        //  for (var i=0;i<arr1.length;i++){
+
+        //          if (arr1[i]!=arr2[i]) {
+        //           return false;
+        //          }
+        //  }
+        //  return true;
+        //};
+        //alert (areArraysSame([1,2,3],[1,2,4]) + '\n' + areArraysSame([1,2,3],[1,2,3]));
+
+
+
+
+        //function changeTwoIndexInArray (array,index1,index2) {
+
+        //       var tmp = 0;
+        //       tmp =array[index1];
+        //       array[index1]=array[index2];
+        //       array[index2]=tmp;
+        //       return array;       
+        //}
+        //var testArr = [1,2,3,4];
+        //alert (changeTwoIndexInArray (testArr,0,3));
+
+
+
+
+
+
+
+        //function randomInsertValueInArray (arrayLength , symbol ) {
+        //array=[];
+        //   for (var i=0;i<arrayLength;i++) {
+        //    array.push(symbol);
+        //}
+        //return array;
+        //}
+
+        //var array = randomInsertValueInArray(5,'_');
+        //alert (array);
+
+
+
+
+        /*function changeValuesStringAndNumbersInTwoArrays  (array1,array2) {
+           var twoArrays = array1.concat(array2);
+           var x = 0
+           var arrString =[];
+           var arrNumber= [];
+
+            for (var i =0; i<twoArrays.length;i++) {
+                x=twoArrays[i];
+                if (typeof(x)=='boolean'){ 
+                   continue
+                }  
+                else if (typeof(x)=='string'){
+                      arrString.push(x);    
+                }
+               else {
+                    arrNumber.push(x);
+                }
+               
+            }  
+            var arrays ={
+                    arrString : arrString,
+                    arrNumber : arrNumber 
+                }
+        return arrays
+        }
+        var ChangeValuesInArrays = changeValuesStringAndNumbersInTwoArrays([6,1,2,9,8,'re',5,'arr'],['ky',9,5,3,'ta']);
+        alert (ChangeValuesInArrays.arrNumber + '\n' + ChangeValuesInArrays.arrString);
+        */
+
+
+
+
+
+        /*function minValueInArray (array) {
+            var min =array[0];
+           var ind =0;
+           for (var i=0;i<array.length;i++) { 
+                if (min>array[i]) {
+                    min=array[i];
+                    ind=i;
+                }
+            }
+               var res = {
+                  min : min,
+                  ind :ind
+                }
+            return res; 
+        };
+        */
+
+
+
+
+        //сортування масиву 
+
+        /* function minValueInArray(inputArray) {
+             var min = inputArray[0];
+             var ind = 0;
+             for (var i = 0; i < inputArray.length; i++) {
+                 if (min > inputArray[i]) {
+                     min = inputArray[i];
+                     ind = i;
+                 }
+             }
+             var res = {
+                 min: min,
+                 ind: ind
+             }
+             return res;
+         };
+
+         function sortingArray(inputArray) {
+
+             var sorted = [];
+             
+             while (inputArray.length > 0) {
+                 var obj = minValueInArray(inputArray);
+                
+                 sorted.push(obj.min);
+                 var tmp1 = inputArray.slice(0, obj.ind); //3
+                 var tmp2 = inputArray.slice(obj.ind + 1);
+                 inputArray = tmp1.concat(tmp2);
+
+             }
+             return sorted;
+         };
+
+         var inputArray = [5, 8, 1, 7, 2, 9, 6, 3];
+         var sorted = sortingArray(inputArray);
+         alert(sorted.join("-"));
+         */
+
+
+        /*function SumAllNumbersInArray(array) {
+            var sumNumber = 0
+                for (var i = 0; i < array.length; i++) {
+                    sumNumber += array[i];
+                }
+            return sumNumber;
+        }
+
+
+        function createArrayWithSumNumbers(arrayLength, firstNumber) {
+            var array = [];
+            var sumNumber = 0;
+            array.push(firstNumber);
+            for (var j = 0; j < arrayLength; j++) {
+                
+                sumNumber = SumAllNumbersInArray(array);
+                array.push(sumNumber);
+            }
+            return array;
+        }
+        var sumArray = createArrayWithSumNumbers(10, 5);
+        alert(sumArray);
+        */
+
+
+        function displayTwoDimensionalArray(arr) {
+            var str = "";
+
+            for (var y = 0; y < arr.length; y++) {
+                var row = arr[y];
+                for (var x = 0; x < row.length; x++) {
+                    str += row[x]; //str = str + row[x]
+                }
+                str += '\n';
+
+            }
+            return str;
+        }
+
+
+        function insertDiferentNumberOfSymbolInTheMiddleOfArray(arrayLength, numberOfSymbol, symbol) {
+            var array = [];
+            var start = parseInt((arrayLength - numberOfSymbol) / 2, 10);
+            var end = start + numberOfSymbol;
+
+            for (var i = 0; i < arrayLength; i++) {
+                if (i < start) {
+                    array[i] = '_';
+                }
+                if (i >= start) {
+                    array[i] = symbol;
+                }
+                if (i >= end) {
+                    array[i] = '_';
+                }
+            }
+            return array
+        }
+
+
+
+
+
+
+
+
+
+        function differentSymbolInManyArrays(arrayLength, symbol) {
+            var array = [];
+
+            for (var y = 0; y < arrayLength; y++) {
+                //x                                                                       
+                array[y] = [symbol]; //x
+                //  array[y].push(symbol);                                   //x
+            } //x
+
+            return array;
+        }
+        var tmp1 = differentSymbolInManyArrays(5, 'x');
+        var arr11 = displayTwoDimensionalArray(tmp1);
+        alert(arr11);
+
+
+
+
+
+
+        function differentSymbolInManyArrays0(arrayLength, symbol) {
+            var array = [];
+            for (var y = 0; y < arrayLength; y++) {
+                array[y] = []; //x
+                for (var x = 0; x < y + 1; x++) { //xx
+                    array[y].push(symbol); //xxx
+                    //array[y][x] = symbol;
+                }
+            }
+
+            return array;
+        }
+        var tmp1 = differentSymbolInManyArrays0(5, 'x');
+        var arr22 = displayTwoDimensionalArray(tmp1);
+        alert(arr22);
+
+
+
+
+
+
+
+        function differentSymbolInManyArrays1(arrayLength, symbol) {
+            var array = [];
+
+            for (var y = 0; y < arrayLength; y++) {
+                //xxx
+                array[y] = []; //xx
+                for (var x = 0; x < arrayLength; x++) { //x
+
+                    array[y][x] = ' ';
+                    if (x > arrayLength - 2 - y && arrayLength - 1 - y < arrayLength) {
+                        array[y][x] = symbol;
+                    }
+
+                }
+            }
+
+            return array;
+        }
+        var tmp2 = differentSymbolInManyArrays1(5, 'x');
+        var arr33 = displayTwoDimensionalArray(tmp2);
+        alert(arr33);
+
+
+
+
+
+
+
+        function differentSymbolInManyArrays2(arrayLength, symbol) {
+            var array = [];
+
+            for (var y = 0; y < arrayLength; y++) {
+
+                array[y] = []; //   x
+                for (var x = 0; x < arrayLength + 1; x++) { //   x
+                    array[y].push(' '); //   x
+                }
+            }
+
+            for (var yy = 0; yy < arrayLength; yy++) {
+                array[yy].shift();
+                for (var xx = 0; xx < 1; xx++) {
+                    array[yy].push(symbol);
+                }
+            }
+
+            return array;
+        }
+        var tmp2 = differentSymbolInManyArrays2(5, 'x');
+        var arr44 = displayTwoDimensionalArray(tmp2);
+        alert(arr44);
+
+
+
+
+
+
+
+        function differentSymbolInManyArrays3(arrayLength, symbol) {
+            var array = [];
+            var tmp = 0
+            for (var y = 0; y < arrayLength; y++) {
+
+                array[y] = [];
+                for (var x = 0; x < arrayLength + 1; x++) {
+                    array[y].push(' '); //   x
+                } //  xx
+            } // xxx
+
+            for (var yy = 0; yy < arrayLength; yy++) {
+                tmp = array[yy].shift();
+                array[yy].push(symbol);
+
+                for (var xx = 0; xx < yy; xx++) {
+                    tmp = array[yy].shift();
+                    array[yy].push(symbol);
+                }
+            }
+
+            return array;
+        }
+        var tmp3 = differentSymbolInManyArrays3(5, 'x');
+        var arr55 = displayTwoDimensionalArray(tmp3);
+        alert(arr55);
+
+
+
+
+        function differentSymbolInManyArrays4(arrayLength, symbol) {
+            var array = [];
+
+            for (var y = 0; y < arrayLength; y++) {
+
+                array[y] = [];
+                for (var x = 0; x < arrayLength; x++) {
+                    array[y].push('     '); //xxxx
+                } //x  x
+            } //xxxx
+
+            for (var i = 0; i < array[0].length; i++) {
+                array[0][i] = symbol + '   ';
+            }
+            for (var j = 0; j < array[arrayLength - 1].length; j++) {
+                array[arrayLength - 1][j] = symbol + '   ';
+            }
+            for (var t = 0; t < arrayLength - 1; t++) {
+                array[t][0] = symbol + '   ';
+                array[t][arrayLength - 1] = symbol + '   ';
+            }
+
+            return array;
+        }
+        var tmp3 = differentSymbolInManyArrays4(5, 'x');
+        var arr66 = displayTwoDimensionalArray(tmp3);
+        alert(arr66);
+
+
+
+
+
+
+
+        function differentSymbolInManyArrays5(arrayLength, symbol) {
+            var array = [];
+
+            for (var y = 0; y < arrayLength; y++) {
+
+                array[y] = [];
+                for (var x = 0; x < arrayLength; x++) {
+                    array[y].push('     ');
+                }
+            }
+            var vidstup = 1;
+
+            for (var i = 1; i < array[0].length - 1; i++) { //   
+                array[1][i] = symbol + '   '; //  xxxx
+            } //  x  x
+            for (var j = 1; j < array[arrayLength - 1].length - 1; j++) { //  xxxx
+                array[arrayLength - 2][j] = symbol + '   '; //
+            }
+            for (var t = 1; t < arrayLength - 1; t++) {
+                array[t][1] = symbol + '   ';
+                array[t][arrayLength - 2] = symbol + '   ';
+            }
+
+            return array;
+        }
+        var tmp3 = differentSymbolInManyArrays5(5, 'x');
+        var arr77 = displayTwoDimensionalArray(tmp3);
+        alert(arr77);
+
+
+
+
+
+
+
+        function differentSymbolInManyArrays6(arrayLength, symbol) {
+            var array = [];
+            var tmp = 0;
+
+            var step = 2;
+            var count = 1;
+            for (var y = 0; y < arrayLength; y++) {
+
+                array[y] = [];
+
+                tmp = insertDiferentNumberOfSymbolInTheMiddleOfArray(arrayLength, count, symbol)
+                array[y].push(tmp);
+
+                count += step;
+                if (count == arrayLength) {
+                    step *= -1;
+                }
+            }
+            return array;
+        }
+        var tmp3 = differentSymbolInManyArrays6(11, 'x');
+        var arr88 = displayTwoDimensionalArray(tmp3);
+        alert(arr88);
+
+
+
+
+
+
+
+
+        function randomStr(arrayLength, symbol) {
+            var string = [];
+            var str = Math.floor(Math.random() * arrayLength);
+            for (i = 0; i < str; i++) {
+                string.push(symbol);
+            }
+            for (j = 0; j < arrayLength; j++) {
+                if (string[j] !== symbol) {
+                    string.push(' ');
+                }
+            }
+            return string;
+        }
+
+
+
+
+
+        function turningArrayLeftTop(array) {
+
+            for (var y = 0; y < array.length; y++)
+
+                for (var x = y; x < array.length; x++) {
+
+                    var string = array[x][y];
+                    array[x][y] = array[y][x];
+
+                    array[y][x] = [string];
+                }
+            return array;
+        }
+
+
+
+
+
+        function turningArrayTopBottom(array) {
+
+            for (var y = 0; y < array.length / 2; y++) {
+                var arr = array[y];
+                array[y] = array[array.length - 1 - y];
+
+                array[array.length - 1 - y] = arr;
+            }
+
+            return array;
+        }
+
+
+
+
+
+
+
+
+        function differentSymbolInManyArrays7(arrayLength, symbol) {
+            var newArr = [];
+            for (var i = 0; i < arrayLength; i++) {
+                for (var j = 0; j < arrayLength; j++) {
+                    var str = randomStr(arrayLength, symbol);
+                    newArr[i] = str;
+                }
+            }
+            return newArr;
+        }
+        var arr = differentSymbolInManyArrays7(10, 'x');
+        var returnTop = turningArrayLeftTop(arr);
+        var returnBottom = turningArrayTopBottom(returnTop);
+        var returnArray = displayTwoDimensionalArray(returnBottom);
+        alert(returnArray);
+    </script>
+</body>
+
+</html>

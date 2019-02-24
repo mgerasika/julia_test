@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title><h1>масив</h1></title>
+</head>
+<body>
+
+<script>
+
+var word1=[5,4,7,2,3,1,5,9];
+
+function createArray(s){
+    var arr = [];
+    for (var a=0; a < s ; a++ ) {
+        var r = Math.random()*s;
+        r = Math.floor(r);
+
+        arr.push(r);
+        var z = arr[a];
+        
+    }
+    return arr;
+
+}
+
+
+
+function findMin(arr) {
+    var x = arr[0];
+
+    for (var a=0; a < arr.length ; a++ ) {
+        if (arr[a] < x) {
+            x=arr[a];
+        }
+    }
+
+    return x;
+}
+
+
+function findMax(arr) {
+    var x = arr[0];
+
+    for (var a=0; a < arr.length ; a++ ) {
+        if (arr[a] > x) {
+            x=arr[a];
+        }
+    }
+
+    return x;
+}
+
+var arr1 = createArray(100);
+var min = findMin(arr1);
+var max = findMax(arr1);
+alert("min = " + min + " max = " + max);
+</script>
+
+<script>
+var row1 = [1,2,3];
+var row2 = [4,5,6];
+var row3 = [7,8,9];
+
+var table = [];
+table.push(row1);
+table.push(row2);
+table.push(row3);
+
+var symbol = '|';
+var res = '';
+
+function printRow(row1) {
+    for (var i=0; i < row1.length ; i++) {
+        res += '('  + row1[i] + ')';
+        var last = row1.length -1;
+        if(i != last) {
+            res += "|";
+        }
+    }
+}
+
+
+for (var i=0; i < table.length ; i++) {
+    var row = table[i];
+    printRow(row)
+
+    var last = row1.length -1;
+    if(i != last) {
+        res += "\n";
+    }
+}
+
+//printRow(row1)
+//res+="\n";
+//printRow(row2);
+//res+="\n";
+//printRow(row3);
+alert (res);
+
+
+</script>
+</body>
+</html>

@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>ссилки</title>
 </head>
+
 <body>
 
-<p><a href="https://ru.wikipedia.org/wiki/%D0%A1%D0%B0%D0%BB%D1%8C%D1%81%D0%B0"
-title="музика"><h1>сальса</h1></a></p>
+    <input type="color" id="el1" value="1" onchange="fn1(this)" />
+    <input type="text" id="el2" value="2" onclick="fn1(this)"/>
 
-<p><a href="http://gidonline.in/"
-title=" щось цікаве">фільми</a></p>
+    <p><a href="https://ru.wikipedia.org/wiki/%D0%A1%D0%B0%D0%BB%D1%8C%D1%81%D0%B0" title="музика">
+            <h1>сальса</h1>
+        </a></p>
+
+    <p><a href="http://gidonline.in/" title=" щось цікаве">фільми</a></p>
 
 </body>
-</html>
 
+<script type="text/javascript">
+    var el1 = window.document.getElementById("el1");
+    //alert(el1.value)
+
+    function fn1(el){
+document.body.style.backgroundColor = el.value;
+    }
+</script>
+
+</html>
