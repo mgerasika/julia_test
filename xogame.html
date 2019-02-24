@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>xo game</title>
+    <style type="text/css" >
+    td {
+        width:100px;
+        height:100px;
+        border:1px solid black;
+        font-size:3em;
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+ <table onclick="myFn(event.target)" >
+     <tr>
+         <td index="1"></td>
+         <td index="2"></td>
+         <td index="3"></td>
+     </tr>
+     <tr>
+        <td index="4"></td>
+        <td index="5"></td>
+        <td index="6"></td>
+    </tr>
+    <tr>
+        <td index="7"></td>
+        <td index="8"></td>
+        <td index="9"></td>
+    </tr>
+ </table>
+
+</body>
+
+<script type="text/javascript">
+function myFn(el) {
+    var idx = parseInt(el.getAttribute("index"),10);
+    alert(idx)
+    if(idx%2 == 0) {
+    el.innerHTML = "x";
+    }
+    else {
+        el.innerHTML = "y";
+    }
+}
+</script>
+
+</html>
+
