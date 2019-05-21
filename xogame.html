@@ -1,51 +1,137 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>xo game</title>
-    <style type="text/css" >
-    td {
-        width:100px;
-        height:100px;
-        border:1px solid black;
-        font-size:3em;
-        text-align: center;
-    }
+    <style type="text/css">
+        td {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            font-size: 3em;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
- <table onclick="myFn(event.target)" >
-     <tr>
-         <td index="1"></td>
-         <td index="2"></td>
-         <td index="3"></td>
-     </tr>
-     <tr>
-        <td index="4"></td>
-        <td index="5"></td>
-        <td index="6"></td>
-    </tr>
-    <tr>
-        <td index="7"></td>
-        <td index="8"></td>
-        <td index="9"></td>
-    </tr>
- </table>
+    <p>
+        Зараз ходить : <span id="hid"></span>
+    </p>
+    <h3 id="vvv">
+    </h3>
+    <table onclick="myFn(event.target)">
+        <tr>
+            <td index="1"></td>
+            <td index="2"></td>
+            <td index="3"></td>
+        </tr>
+        <tr>
+            <td index="4"></td>
+            <td index="5"></td>
+            <td index="6"></td>
+        </tr>
+        <tr>
+            <td index="7"></td>
+            <td index="8"></td>
+            <td index="9"></td>
+        </tr>
+    </table>
 
 </body>
 
 <script type="text/javascript">
-function myFn(el) {
-    var idx = parseInt(el.getAttribute("index"),10);
-    alert(idx)
-    if(idx%2 == 0) {
-    el.innerHTML = "x";
+    var game = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
+    var symbol = 'x';
+    var end = false;
+    var arr1 = [0, 1, 2];
+    var arr2 = [3, 4, 5];
+    var arr3 = [6, 7, 8];
+    var arr4 = [0, 3, 6];
+    var arr4 = [1, 4, 7];
+    var arr4 = [2, 5, 8];
+    var arr4 = [0, 4, 8];
+    var arr4 = [2, 4, 6];
+    var bigArray = [];
+    bigArray.push(arr1);
+    bigArray.push(arr2);
+    bigArray.push(arr3);
+    bigArray.push(arr4);
+    bigArray.push(arr5);
+    bigArray.push(arr6);
+    bigArray.push(arr7);
+    bigArray.push(arr8);
+
+    document.getElementById("hid").innerHTML = symbol;
+
+    function myFn(el) {
+        if (!end) {
+            var idx = parseInt(el.getAttribute("index"), 10);
+            if (game[idx - 1] == ' ') {
+                game[idx - 1] = symbol;
+                el.innerHTML = symbol;
+
+                var res = check(game, bigArray[0]);
+
+                var tmpRes = false;
+                for (var i = 0; i < bigArray.length; i++) {
+                    if (check(game, bigArray[i])) {
+                        tmpRes = true;
+                        break;
+                    }
+
+                }
+
+                function qqq(array) {
+                    var tmp = 0;
+                    var aaa = false;
+                    for (var j = 0; j < array.length; j++) {
+                        if (array[j] != ' ') {
+                            tmp++
+                        }
+                        if (tmp == array.length) {
+                            aaa = true;
+                        }
+                    }
+                    return aaa
+                }
+
+                var www = qqq(game);
+                if (www) {
+                    document.getElementById("vvv").innerHTML = "нічия";
+                }
+
+                if (tmpRes) {
+                    document.getElementById("vvv").innerHTML = "виграв  " + symbol;
+                    end = true;
+                }
+
+
+                if (symbol == 'x') {
+                    symbol = '0';
+
+                } else {
+                    symbol = 'x'
+                }
+                document.getElementById("hid").innerHTML = symbol;
+
+            }
+        }
     }
-    else {
-        el.innerHTML = "y";
+
+    function check(game, arr) {
+        var idx1 = arr[0];
+        var idx2 = arr[1];
+        var idx3 = arr[2];
+        if (game[idx1] == game[idx2] && game[idx1] == game[idx3]) {
+            if (game[idx1] == "x" || game[idx1] == '0') {
+                return true;
+            }
+        }
+        return false;
+
     }
-}
 </script>
 
 </html>
-

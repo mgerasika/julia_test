@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Віселица</title>
+</head>
+
+<body>
+    <h1>Вгадай слово:)</h1>
+
+
+    <script async>
+        var words = [
+            'слон',
+            'кіт',
+            'мишка',
+            'тигр',
+            'лев',
+            'змія',
+            'хамелеон'
+        ];
+
+        function randomWordOfArray(array) {
+            var word = array[Math.floor(Math.random() * array.length)];
+            return word;
+        };
+
+        function endTheGame(array) {
+
+            var tmp = 0;
+            var end = false;
+            for (var i = 0; i < array.length; i++) {
+                if (array[i] == '_') {
+                    tmp++;
+                }
+            }
+            if (tmp == 0) {
+                end = true;
+            }
+            return end;
+        };
+
+        var randomWord = randomWordOfArray(words);
+
+        var word = [];
+
+        for (var i = 0; i < randomWord.length; i++) {
+            word.push('_');
+        };
+
+        var end = endTheGame(word);
+        while (end == false) {
+
+            alert(word.join(' '))
+            var answer = prompt('Вгадайте букву');
+
+            answer = answer.toLowerCase();
+
+            for (var i = 0; i < word.length; i++) {
+
+                if (answer == randomWord[i]) {
+                    alert('Ви вгадали букву!');
+                    word[i] = answer;
+                };
+
+            }
+            end = endTheGame(word);
+            if (end == true) {
+                alert(' Ви вгадали слово  ' + word.join('') + '!' + ' Вітаємо!');
+
+            };
+        }
+    </script>
+
+</body>
+
+</html>
