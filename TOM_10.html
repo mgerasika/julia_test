@@ -3,42 +3,127 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>інтерактивне програмування</title>
+    <title>tom 10</title>
 </head>
 
 <body>
-   <p> інтерактивне програмування </p>
-</body>
-
-<script>
-/*
-    function timeOut () {
-        alert('час вийшов');
-    };
-    setTimeout(timeOut,3000);
-  */
-
-
-/*
-   function doHomeWork () {
-       alert('роби домашку');
-   };
-   var timeOutId= setTimeout(doHomeWork,4000);
-   clearTimeout(timeOutId);
+    <h1 id='heading'> =('.')= </h1>
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+    <script async>
+        /*
+function timeOut () {
+    alert('час вийшов');
+}
+setTimeout(timeOut,5000);
 */
 
-var seconds = 1;
-function plasOneSecond () {
-   $('body').append('<p> ця сторінка відкрита вже </p>' + seconds + '<p> секунд </p>');
-    seconds++
-}
-var intervalId = setInterval(plasOneSecond,1000);
-
-if (intervalId =10) {
-    clearInterval(intervalId);
-};
 
 
-</script>
+
+
+        /*var seconds =5;
+        function message () {
+            console.log ('сторінка відкрита вже  '+ seconds + 'секунд');
+            seconds+=5;
+        };
+        var intervalId = setInterval(message,5000);
+        */
+
+
+
+
+        /*
+        var leftOffset=1      ;
+
+        function moveHeading () {
+            $('#heading').offset({left:leftOffset});
+
+            leftOffset++;
+
+            if (leftOffset>=200) {
+                leftOffset=0;
+            }
+        };
+
+        setInterval(moveHeading,30);
+        */
+
+
+
+
+
+        //                                           КЛІК
+        /*
+        function clickHandler (event) {
+            console.log('клік' + event.pageX +' ' + event.pageY);
+        };
+
+        $('h1').click(clickHandler);
+        */
+
+
+
+
+
+
+        //                                         РУХ МИШКИ
+
+        /*    
+        $('html').mousemove(function(event){
+            $('#heading').offset({
+                left: event.pageX,
+                top: event.pageY
+            });
+        });
+        */
+
+        //                                  задачка сторінка 165
+        var leftOffset = 10;
+        var topOffset = 22;
+        var miliseconds = 21;
+        var colour = 0.2;
+
+        var intervalId = setInterval(move, miliseconds);
+
+        function move() {
+            $('#heading').fadeTo(1, colour);
+            if (((leftOffset >= 10 && leftOffset < 200) && topOffset < 200) || (leftOffset == 9 && topOffset == 21)) {
+                leftOffset++;
+            } else if (leftOffset >= 200 && topOffset < 200) {
+                topOffset++;
+            } else if ((leftOffset >= 10 && leftOffset <= 200) && topOffset >= 200) {
+                leftOffset--;
+            } else if (topOffset >= 22) {
+                topOffset--;
+            }
+            $('#heading').offset({
+                left: leftOffset,
+                top: topOffset
+            });
+        };
+        /*
+                function stopAnimation(event) {
+        clearInterval(intervalId);
+                };
+
+                $('#heading').click(stopAnimation);
+        */
+        function speed(event) {
+            clearInterval(intervalId);
+            miliseconds -= 5;
+            console.log(miliseconds);
+            console.log(colour);
+            colour += 0.2;
+
+            if (miliseconds < 1) {
+                clearInterval(intervalId);
+                $('#heading').text('ти зловив котика');
+            } else {
+                intervalId = setInterval(move, miliseconds);
+            }
+        };
+        $('#heading').click(speed);
+    </script>
+</body>
 
 </html>

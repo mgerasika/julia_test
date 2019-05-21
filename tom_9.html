@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>tom 9</title>
+</head>
+<body>
+    <h1 id='main_heading'> tom 9 </h1>
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+<script async>
+   /* 
+                              МІНЯЄМО ЗАГОЛОВОК З DOM
+
+   var headingElement = document.getElementById('main_heading');
+    console.log(headingElement.innerHTML);
+    var newHeadingText = prompt('введіть новий заголовок');
+    headingElement.innerHTML=newHeadingText;
+    */
+
+//               МІНЯЄМО ЗАГОЛОВОК З JQUERY
+
+/*
+var newHeadingText=prompt('введіть новий заголовок');
+$('#main_heading').text(newHeadingText);
+*/
+
+//$('body').append('<p> re re </p>');
+
+/*for (var i=0;i<3;i++) {
+    var pets = prompt('назвіть домашню тваринку');
+    $('body').append('<p>'+ pets + '</p>');
+    }
+    */
+    //$('h1').hide(1000).show(1000);
+
+    /*
+     var time=1000;
+for (var i=0;i<5;i++){
+    $('h1').fadeOut(time).fadeIn(time);
+    time +=1000;
+}
+*/
+
+//$('h1').fadeOut(1000).delay(5000).fadeIn(1000);
+
+
+//$('h1').fadeTo(1000,0.1);
+
+
+
+var friends = [
+    'joi',
+    'rob',
+    'jon',
+    'fed'
+];
+for (var i=0;i<friends.length;i++) {
+    $('body').append('<p>'+ friends[i] + '</p>');
+    $('p').hide(1000).fadeIn(1000);
+}
+$('h1').text('імена');
+$('p').append('- друг');
+
+
+</script>
+</body>
+</html>

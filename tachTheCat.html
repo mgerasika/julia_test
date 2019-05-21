@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>tom 10</title>
+</head>
+
+<body>
+    <h1 id='heading'> =('.')= </h1>
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+
+
+
+    <script async type="text/javascript">
+        var leftOffset = 600;
+        var topOffset = 300;
+        var miliseconds = 200;
+        var colour = 0.2;
+        var step = [-120, -100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100, 120];
+        var numberOfInterval = 0;
+
+        var intervalId = setInterval(move, miliseconds);
+
+        function victoryAndSpeed(event) {
+            clearInterval(intervalId);
+            miliseconds -= 5;
+            colour += 0.2;
+
+            if (miliseconds < 1) {
+                clearInterval(intervalId);
+                $('#heading').text('ти зловив котика');
+            } else {
+                intervalId = setInterval(move, miliseconds);
+            }
+        };
+
+        $('#heading').click(victoryAndSpeed);
+
+        function gameOver() {
+            clearInterval(intervalId);
+            alert('котик втік ' + '/n' + 'ти програв');
+        };
+
+
+
+        function move() {
+
+            var muve = step[Math.floor(Math.random() * step.length)];
+            var temp = muve;
+
+            var direction = numberOfInterval % 2;
+            $('#heading').fadeTo(1, colour);
+
+
+            if (direction == 1) { //left 
+                while (temp !== 0)
+                 {
+                    if (muve > 0) {
+                        leftOffset++;
+                       temp--;
+                    } else {
+                        leftOffset--;
+                       temp++;
+                    };
+
+                };
+                numberOfInterval++
+
+            } else { //top
+                while (temp !== 0) 
+                {
+                    if (muve > 0) {
+                        topOffset++;
+                        temp--;
+                    } else {
+                        topOffset--;
+                       temp++;
+                    };
+
+                };
+                numberOfInterval++
+            };
+
+            $('#heading').offset({
+                left: leftOffset,
+                top: topOffset
+            });
+            if (topOffset > 570 || leftOffset > 1290 || topOffset < 0 || leftOffset < 0) {
+                var end = gameOver;
+            };
+        };
+    </script>
+</body>
+
+</html>
