@@ -17,19 +17,18 @@ var topOffset=450;
 var pixel=[-150,-130,-100,-80,-60,-40,-20,0,20,40,60,80,100,130,150];
 var miliseconds =20;
 var colour=0.2;
-
-
-$('#cat').offset({
-left: leftOffset,
-top: topOffset
-});
+var bool = false;
+var number=1;
+var test=1;
 
 $('#cat').fadeTo (1,colour);
 
-function speedAndVictory (event){
+function speedAndVictory (event){  //            збільшення швидкості та зміна кольору по кліку
     miliseconds-=5;
+    console.log(miliseconds);
     colour+=0.2;
-    if (miliseconds<=0){
+    $('#cat').fadeTo (1,colour);
+    if (miliseconds<=0){    //                   кінець гри . перемога
 
         clearInterval(intervalId);
 
@@ -39,50 +38,67 @@ function speedAndVictory (event){
         });
 
         for(var i=0;i<100;i++){      
-        $('#cat').text('Ти зловив котика!').delay(2000).text('Ура!!!');
+        $('#cat').text('Ти зловив котика!');
         };
     };
 };
 $('#cat').click (speedAndVictory);
 
-
-function moveCat () {
-    var step= pixel[Math.floor(Math.random()*pixel.length)];
-var direction=intervalId % 2;
-console.log(direction);
-console.log(step);
-if (direction==1){
-    if(step>0){
-        leftOffset++;
-    }else if(step<0){
-        leftOffset--;
-    }else{
-        leftOffset+=0;
-    };
-
-}else{
-    if(step>0){
-        topOffset++;
-    }else if(step<0){
-        topOffset--;
-    }else{
-        topOffset+=0;
-    };
-};
-};
-
 var intervalId=setInterval(moveCat,miliseconds)
 
 
-if (topOffset<=20 && leftOffset<=20 && topOffset>=850 && leftOffset>=1800) {
-    clearInterval(intervalId);
-    $("#cat").offset({
-        left:900,
-        top: 450
-    });
-    $('#cat').text('ти програв!').delay(2000).text('котик втік!');
+function randomStep (pixel){
+    var step= pixel[Math.floor(Math.random()*pixel.length)];
+    return step;
 };
 
+var step = randomStep(pixel);
+ 
+
+function moveCat () {  //                              рух котика
+    
+if (step==0) {
+    step=randomStep(pixel);
+    number++;
+};
+test=number % 2;
+   
+    if (test==1 && step>0){
+        leftOffset++;
+        step--;
+        
+    }else if(test==1 && step<0){
+        leftOffset--;
+        step++;
+       
+    }else if (test==0 && step>0){
+        topOffset++;
+        step--;
+        
+    }else if(test==0 && step<0){
+        step++;
+        topOffset--;
+       
+    }else{
+        alert('помилка');
+    };
+    
+$('#cat').offset({     //                              місцезнаходження котика
+left: leftOffset,
+top: topOffset
+});
+//                                                          кінець гри .програш
+
+if (topOffset<=20 || leftOffset<=20 || topOffset>=850 || leftOffset>=1800) {  
+    clearInterval(intervalId);
+    $("#cat").offset({
+        left:800,
+        top: 450
+    });
+    $('#cat').fadeTo(1,1);
+    $('#cat').text('Kотик втік!');
+};
+};
 </script>
 
 </html>
