@@ -7,45 +7,59 @@
 </head>
 
 <body>
-    <h1 id='cat'> =('.')= </h1>
+    <h1 id='score'> Level 1/5 </h1>
+    <img src='cat.jpg'alt='=(*.*)='widht='200'height='100'>
+    <h1 id='end'>  </h1>
 </body>
 <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
 <script>
 
     var leftOffset = 900;
     var topOffset = 450;
-    var pixel = [-150, -130, -100, -80, -60, -40, -20, 0, 20, 40, 60, 80, 100, 130, 150];
-    var miliseconds = 20;
+    var pixel = [-150, -130, -100, -80, -60, -40, -20, 20, 40, 60, 80, 100, 130, 150];
+    var miliseconds = 25;
     var colour = 0.2;
     var bool = false;
     var number = 1;
     var test = 1;
+    var end = false;
+    var level=1;
 
-    $('#cat').fadeTo(1, colour);
+    $('img').fadeTo(1, colour);
 
     function speedAndVictory(event) {  //            збільшення швидкості та зміна кольору по кліку
+        if (end==false){
         miliseconds -= 5;
-        var intervalId = setInterval(moveCat, miliseconds);
-        console.log(miliseconds);
+        level+=1;
+        $('#score').text('Level '+level +'/5');
+        intervalId = setInterval(moveCat, miliseconds);
+        
         colour += 0.2;
-        $('#cat').fadeTo(1, colour);
-        if (miliseconds <= 0) {    //                   кінець гри . перемога
+        $('img').fadeTo(1, colour);
+        if (miliseconds <= 5) {    //                   кінець гри . перемога
 
             clearInterval(intervalId);
-
-            $("#cat").offset({
-                left: 900,
-                top: 450
+            end=true;
+            $("img").offset({
+                left: 850,
+                top: 350
             });
-
-            for (var i = 0; i < 100; i++) {
-                $('#cat').text('Ти зловив котика!');
-            };
+            $('#end').text('Ти зловив котика!')
+            $('#end').offset({
+                left: 800,
+                top:450
+            });
+            
+        };
         };
     };
-    $('#cat').click(speedAndVictory);
-
-    var intervalId = setInterval(moveCat, miliseconds);
+    $('img').click(speedAndVictory);
+   
+   
+    
+     var intervalId = setInterval(moveCat, miliseconds);
+    
+   
 
 
     function randomStep(pixel) {
@@ -57,7 +71,7 @@
 
 
     function moveCat() {  //                              рух котика
-
+    if (end==false){
         if (step == 0) {
             step = randomStep(pixel);
             number++;
@@ -82,9 +96,10 @@
 
         } else {
             alert('помилка');
+            console.log(step);
         };
 
-        $('#cat').offset({     //                              місцезнаходження котика
+        $('img').offset({     //                              місцезнаходження котика
             left: leftOffset,
             top: topOffset
         });
@@ -92,14 +107,23 @@
 
         if (topOffset <= 20 || leftOffset <= 20 || topOffset >= 850 || leftOffset >= 1800) {
             clearInterval(intervalId);
-            $("#cat").offset({
+            end=true;
+            $("img").offset({
                 left: 800,
-                top: 450
+                top: 350
             });
-            $('#cat').fadeTo(1, 1);
-            $('#cat').text('Kотик втік!');
+            $('img').fadeTo(1, 1);
+            $('#end').text('Kотик втік!');
+            $('#end').offset({
+                left: 800,
+                top:450
+            });
+            
         };
     };
+    };
+
+   
 </script>
 
 </html>
