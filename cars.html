@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>car</title>
+</head>
+<body>
+    <h1 id='main_heading'> car </h1>
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+<script async>
+ 
+var Car = function (x, y) {
+    this.x = x;
+    this.y = y;
+};
+
+var drawCar = function (car) {
+    var carHtml = '<img src="car.png">';
+
+    var carElement = $(carHtml);
+
+    carElement.css({
+        position: 'absolute',
+        left : car.x,
+        top : car.y,
+        width : 120,
+        height : 60
+    });
+
+    $('body').append(carElement);
+};
+
+var tesla = new Car(100,100);
+var nisan = new Car (150,300);
+
+drawCar(tesla);
+drawCar(nisan);
+</script>
+</body>
+</html>

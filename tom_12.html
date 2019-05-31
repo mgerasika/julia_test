@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>tom 12</title>
+</head>
+<body>
+    <h1 id='main_heading'> tom 12 </h1>
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+<script async>
+ 
+var dog ={
+    name: 'charly',
+    legs: 4,
+    isAwesome: true
+};
+dog.age=6;
+dog.bark=function() {
+    console.log('Гав, гав! Мене звати ' + this.name );
+};
+
+
+
+var speak= function (){
+    console.log(this.sound + 'Мене звати ' + this.name);
+};
+var cat = {
+    name : 'Tom',
+    sound : 'Мяу!',
+    age : 3,
+    speak : speak
+};
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>car</title>
+</head>
+<body>
+    <h1 id='main_heading'> car </h1>
+    <img src="road.jpg"width = '1900', height ='300'>
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+<script async>
+
+    var stopMoveRight=0;
+ 
+var Car = function (x, y,speed) {
+    this.x = x;
+    this.y = y;
+    this.speed =speed;
+};
+
+function speed () {
+    return Math.floor(Math.random()*5);
+};
+var speed= speed();
+
+
+
+Car.prototype.draw = function () {
+    var carHtml = '<img src="car2.png">';
+
+    this.carElement = $(carHtml);
+
+    this.carElement.css({
+        position: 'absolute',
+        left : this.x,
+        top : this.y,
+        width : 130,
+        height : 90
+    });
+
+    $('body').append(this.carElement);
+
+};
+
+Car.prototype.moveRight = function (speed) {
+    this.x+=speed;
+    
+
+    this.carElement.css ({
+        left: this.x,
+        top : this.y
+    });
+};
+
+/*Car.prototype.moveLeft = function () {
+    this.x-=speed;
+    
+    this.carElement.css ({
+        left: this.x,
+        top : this.y
+    });
+};
+
+Car.prototype.moveUp = function () {
+    this.y-=speed;
+    
+    this.carElement.css ({
+        left: this.x,
+        top : this.y
+    });
+};
+
+Car.prototype.moveDown = function () {
+    this.x+=speed;
+    
+    this.carElement.css ({
+        left: this.x,
+        top : this.y
+    });
+};
+*/
+
+
+
+var tesla = new Car(10,130,speed);
+var nisan = new Car (10,250,speed);
+
+var carsMove= function () {
+    var intervalSpeed= setInterval(speed,20);
+    if (stopMoveRight<=1500) {
+    tesla.moveRight(speed);
+    nisan.moveRight(speed);
+    stopMoveRight++;
+    };
+};
+var intervalId = setInterval(carsMove,20);
+
+
+  
+
+tesla.draw();
+nisan.draw();
+</script>
+</body>
+</html>
