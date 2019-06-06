@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>canvas</title>
+</head>
+<body>
+    <canvas id='canvas' width="1500" height="1500"></canvas>
+    
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+<script async>
+
+
+//var canvas = document.getElementById('canvas');
+//var ctx = canvas.getContext('2d');
+//for (var i = 0; i<8; i++) {
+ //   ctx.fillRect(i*10,i*10,10,10);
+//}
+
+
+
+//                                                                       заповнені прямокутники
+
+/*
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+ctx.fillStyle = 'Yellow';
+ctx.fillRect(100,100,50,50);
+ctx.fillRect(120,150,10,20);
+ctx.fillRect(50,170,150,10); //                                           чоловічок
+ctx.fillStyle = 'Red';
+ctx.fillRect(90,180,70,70);
+ctx.fillStyle = 'Blue';
+ctx.fillRect(90,250,10,50);
+ctx.fillRect(150,250,10,50);
+*/
+
+
+
+//                                                                      контур прямокутника
+
+/*
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+ctx.strokeStyle='Red';
+ctx.lineWidth='5';
+ctx.strokeRect(10,10,100,20);
+*/
+
+
+
+//                                                                     хрестик
+
+/*
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+ctx.strokeStyle='Turquoise';
+ctx.lineWidth='7';
+ctx.beginPath();
+ctx.moveTo(10,10);
+ctx.lineTo(60,60);
+ctx.moveTo(60,10);
+ctx.lineTo(10,60);
+ctx.stroke();
+*/
+
+
+
+
+
+//                                                                  чоловічок з ліній
+
+/*
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+ctx.strokeStyle='Broun';
+ctx.lineWidth='5';
+ctx.beginPath();
+ctx.strokeRect(50,50,50,50);
+ctx.moveTo(75,100);
+ctx.lineTo(75,200);
+ctx.moveTo(75,130);
+ctx.lineTo(30,110);
+ctx.moveTo(75,130);
+ctx.lineTo(120,110);
+ctx.moveTo(75,200);
+ctx.lineTo(30,260);
+ctx.moveTo(75,200);
+ctx.lineTo(120,260);
+ctx.stroke();
+*/
+
+
+
+//                                                                   заливка кольором
+
+/*
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+ctx.fillStyle='Blue';
+ctx.beginPath();
+ctx.moveTo(100,100);
+ctx.lineTo(100,60);
+ctx.lineTo(130,30);
+ctx.lineTo(160,60);
+ctx.lineTo(160,100);
+ctx.lineTo(100,100);
+ctx.fill();
+*/
+
+
+
+
+//                                                                        круг і дуга
+
+/*
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+ctx.lineWidth=2;
+ctx.strokeStyle='Green';
+
+ctx.beginPath();
+ctx.arc(50,50,20,0,Math.PI/2,false);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.arc(100,50,20,0,Math.PI,false);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.arc(150,50,20,0,Math.PI*2,false);
+ctx.stroke();
+*/document
+
+
+
+
+//                                                                          функція для малювання кіл
+
+
+/*
+function circle (x,y,radius,fillCircle){
+    var colours = ['Red','Green','Blue','Orange','Yellow','Purple','Pink','Violet','SkyBlue','PaleGreen'];
+    ctx.beginPath();
+    ctx.lineWidth=4;
+    var colour=colours[Math.floor(Math.random() * colours.length)]
+    ctx.strokeStyle=colour;
+    ctx.arc(x,y,radius,0,Math.PI*2,false);
+    ctx.stroke();
+};
+//                                                                           малюємо кола в колі з використанням функції 
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+for ( var i=0; i<10;i++) {
+    ctx.lineWidth=4;
+    circle(100,100,i*10);
+};
+
+*/console
+
+
+
+
+
+
+
+//                                                              малюємо сніговика  , вводимо координати через prompt
+/*
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+var x = prompt('Щоб намалювати сніговика потрібно вказати координати! Введи координату х');
+var y = prompt('А тепер y');
+ x=parseInt(x,10);
+ y=parseInt(y,10);
+
+function circle (x,y,radius){
+    ctx.beginPath();
+    ctx.lineWidth=4;
+    ctx.arc(x,y,radius,0,Math.PI*2,false);
+    ctx.stroke();
+};
+
+function fullCircle(x,y,radius,colour){
+    ctx.beginPath();
+    ctx.lineWidth=4;
+    ctx.arc(x,y,radius,0,Math.PI*2,false);
+    ctx.fill();
+};
+
+function snowMen (x,y) {
+circle(x,y,36,);
+circle(x,y+96,60,);
+fullCircle(x,y+10,5,);
+fullCircle(x-10,y-5,5,);
+fullCircle(x+10,y-5,5,);
+fullCircle(x,y+60,5,);                                                                                                                                                                                                                   
+fullCircle(x,y+90,5,);
+fullCircle(x,y+120,5,);
+};
+
+snowMen(x,y);
+*/
+
+
+
+
+
+
+
+//                                                            малюємо сніговика ,   сніговик появляється по кліку
+/*
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+
+function circle (x,y,radius,colour){
+    ctx.beginPath();
+    ctx.lineWidth=4;
+    ctx.arc(x,y,radius,0,Math.PI*2,false);
+    ctx.stroke();
+};
+
+function fullCircle(x,y,radius,colour){
+    ctx.beginPath();
+    ctx.lineWidth=4;
+    ctx.arc(x,y,radius,0,Math.PI*2,false);
+    ctx.fill();
+};
+
+function snowMen (x,y) {
+    var colours = ['Red','Green','Blue','Orange','Yellow','Purple','Pink','Violet','SkyBlue','PaleGreen'];
+    var colour=colours[Math.floor(Math.random() * colours.length)]
+circle(x,y,36,colour);
+circle(x,y+96,60,colour);
+fullCircle(x,y+10,5,colour);
+fullCircle(x-10,y-5,5,colour);
+fullCircle(x+10,y-5,5,colour);
+fullCircle(x,y+60,5,colour);                                                                                                                                                                                                                   
+fullCircle(x,y+90,5,colour);
+fullCircle(x,y+120,5,colour);
+};
+
+function drawSnowMan (){
+snowMen(event.pageX,event.pageY);
+};
+
+$('#canvas').click(drawSnowMan);
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+//                                                        малюємо криву лінію з точок які знаходяться в масиві   Є ПОМИЛКИ АЛЕ ПРАЦЮЄ
+/*
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+
+var points = [[50,50],[50,100],[100,100],[100,50],[50,50]];
+
+
+function drawPoints (array) {
+    for (var i = 0; i < array.length; i++){
+
+var first =array[i];
+var x1=first[0];
+var y1=first[1];
+
+var second = array[i+1];
+var x2=second[0];
+var y2=second[1];
+
+ctx.beginPath();
+ctx.moveTo(x1,y1);
+ctx.lineTo(x2,y2);
+ctx.stroke();
+
+    };
+};
+
+drawPoints(points);
+*/
+
+
+
+
+//                                                                    малюємо мишкою
+
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+ function drawPoint () {
+    ctx.fillRect(event.pageX,event.pageY,3,3);
+ };
+$('#canvas').mousemove(drawPoint);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
