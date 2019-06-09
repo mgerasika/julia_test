@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ball</title>
+</head>
+<body>
+    <h1 id='main_heading'>  </h1>
+    <canvas id='canvas' width="1850" height="900"></canvas>
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+<script async>
+
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+var width =canvas.width;
+var height=canvas.height;
+
+//                                                          конструктор Ball
+var Ball = function () {
+    this.x=250;
+    this.y=250;
+    this.xSpeed= Math.random()*10-5;
+    this.ySpeed= Math.random()*5;
+};
+
+//                                                            функція для малювання кіл
+ function circle (x,y,radius,fillCircle) {
+     ctx.beginPath();
+     ctx.arc(x,y,radius,0,Math.PI*2,false);
+     if (fillCircle){
+         ctx.fill();
+     } else {
+         ctx.stroke();
+     };
+ };
+
+//                                             використовуємо  prototype щоб намалювати коло
+Ball.prototype.draw = function(){
+    circle(this.x,this.y,10,true)
+}
+//                                             використовуємо prototype  щоб мяч рухався
+Ball.prototype.move = function (){
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
+};
+//                                             використовуємо prototype  щоб мяч відскакував від стінок canvas
+Ball.prototype.checkCollision = function (){
+    if (this.x < 0 || this.x > width ){
+        this.xSpeed = -this.xSpeed;
+    }
+    if (this.y < 0 || this.y > height ) {
+        this.ySpeed = -this.ySpeed;
+    }
+};
+
+
+
+
+
+var ball = new Ball ();
+
+setInterval(function(){
+    ctx.clearRect(0,0,width,height);
+
+    ball.draw();
+    ball.move();
+    ball.checkCollision();
+
+    ctx.strokeRect(0,0,width,height);
+}, 10);
+
+
+
+</script>
+</body>
+</html>

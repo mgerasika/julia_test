@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas Animation</title>
+</head>
+<body>
+    <h1 id='main_heading'>  </h1>
+    <canvas id='canvas' width="500" height="500" ></canvas>
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+<script async>
+ 
+
+//                                                             рух квадрата вправо
+
+/*
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+var position =0;
+
+setInterval (function() {
+
+    ctx.clearRect (0,0,500,500);
+    ctx.fillRect(position,0,20,20);
+
+    position++
+
+    if (position > 200) {
+        position=0;
+    }
+},30);
+*/
+
+
+
+
+
+//                                                           збільшення квадрата
+
+
+/*
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+var size =0;
+
+setInterval (function() {
+
+    ctx.clearRect (0,0,500,500);
+    ctx.fillRect(0,0,size,size);
+
+    size++
+
+    if (size > 200) {
+        size=0;
+    }
+},30);
+*/
+
+
+
+
+
+
+
+
+//                                                       анімована бджілка
+
+
+
+
+
+
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+var x = 100;
+var y =100;
+
+//                                                                 кінцевий результат (бджілка випадково рухається по екрану)
+setInterval (function (){
+    ctx.clearRect(0,0,500,500);
+
+    drawBee(x,y);
+    x=update(x);
+    y=update(y);
+
+    ctx.strokeRect(0,0,500,500);
+},50);
+
+//                                                         функція для створення кіл заповнених і їх контурів
+function circle (x,y,radius,fillCircle) {
+    ctx.beginPath();
+    ctx.arc(x,y,radius,0, Math.PI*2, false);
+    if (fillCircle) {
+        ctx.fill();
+    } else {
+        ctx.stroke();
+    };
+};
+
+//                                                           малюнок бджілки
+function drawBee (x,y){
+    ctx.lineWidth=2;
+    ctx.strokeStyle= 'Black';
+    ctx.fillStyle='Gold';
+
+    circle(x,y,8,true);
+    circle(x,y,8,false);
+    circle(x-5,y-11,5,false);
+    circle(x+5,y-11,5,false);
+    circle(x-2,y-1,2,false);
+    circle(x+2,y-1,2,false);
+};
+
+//                                                                 випадковий рух бджілки (+-2 пікселі) 
+function update (coordinate) {
+    var offset = Math.random()*4-2;
+    coordinate+=offset;
+
+    if  (coordinate >200) {
+        coordinate=200;
+    };
+    if (coordinate<0){
+        coordinate=0;
+    };
+
+    return coordinate;
+}
+
+
+
+
+</script>
+</body>
+</html>
