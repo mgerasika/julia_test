@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 
-app.use('/addon', express.static(__dirname + '/codemirror/addon'));
+app.use('/public', express.static(__dirname + '/public'));
 app.use('/', express.static(__dirname + '/'));
 
 app.get('/', function (req, res) {
