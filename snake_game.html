@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Змійка</title>
+</head>
+<body>
+   <canvas id="canvas"width='1000' height='1000'> </canvas>
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+<script async>
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    var width= canvas.width;
+    var height=canvas.height;
+    var score = 0;
+    //                                 СТВОРЮЄМО НЕВИДИМУ СІТКУ НА КАНВАСІ , КРОК ЗМІЙКИ БУДЕ ВІДПОВІДАТИ ОДНІЙ ЯЧЕЙЦІ
+    var blockSize = 10;
+    var widthInBlocks = width/blockSize;    //                                    ШИРИНА В БЛОКАХ
+    var heightInBloks = height/blockSize;     //                                 ВИСОТА В БЛОКАХ
+
+//                                                                                 РАМКА ДЛЯ ГРИ 
+var drawBorder = function () {
+    ctx.fillStyle = 'Gray';
+    ctx.fillRect(0,0,width,blockSize);
+    ctx.fillRect(0,height-blockSize,width,blockSize);
+    ctx.fillRect(0,0,blockSize,height);
+    ctx.fillRect(width-blockSize,0,blockSize,height);
+};
+
+//                                                                              ПОКАЗ НАБРАНИХ БАЛІВ ЗА ПОЇДАННЯ ЯБЛУК
+var drawScore = function(){                                                       
+    ctx.textBaseline = 'top';
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'Black';
+    ctx.font = '24px Comic Sans MS';
+    ctx.fillText('Бали: ' + score ,blockSize,blockSize);
+};
+
+//                                                                                             КІНЕЦЬ ГРИ
+ var gameOver = function (){
+     clearInterval(intervalId);
+     ctx.font = '80px Comic Sans MS';
+     ctx.fillStyle = 'Black';
+     ctx.textAlign='center';
+     ctx.textBaseline = 'middle';
+     ctx.fillText('Кінець гри!',width/2,height/2);
+ };
+
+
+drawBorder();
+drawScore();
+gameOver();
+
+
+
+
+</script>
+</body>
+</html>

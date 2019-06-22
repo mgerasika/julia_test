@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Віселица</title>
+</head>
+
+<body>
+    <h1>Вгадай слово:)</h1>
+
+    <form>
+        <input id="answer" type="text">
+        <button id="ok" type="reset">OK</button>
+    </form>
+
+    <canvas id='canvas' width="1610" height="800"></canvas>
+
+    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
+
+    <script async>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var width = canvas.width;
+        var height = canvas.height;
+        var words = [
+            'кіт',
+        ];
+        var falseAnswerX = 300;
+        var falseAnswerY = 100;
+
+        var trueAnswer = false;
+        var falseAnswer= false;
+        var letter = ' ';
+        var wrongLetter=' ';
+
+
+        ctx.strokeStyle = 'Broun';
+        ctx.lineWidth = '8';
+        ctx.beginPath();
+        //ctx.strokeRect(50, 50, 50, 50);
+        ctx.arc(300, 90  , 70, 0, Math.PI * 2,true);
+        ctx.moveTo(300, 160);//                            тулуб
+        ctx.lineTo(300, 450);
+        ctx.moveTo(300, 250);//                              ЛІВА РУКА
+        ctx.lineTo(150, 150);
+        ctx.moveTo(300, 250);//                             ПРАВА РУКА
+        ctx.lineTo(450, 150);
+        ctx.moveTo(300, 450);//                            ЛІВА НОГА
+        ctx.lineTo(200, 700);
+        ctx.moveTo(300, 450);//                               ПРАВА НОГА
+        ctx.lineTo(400, 700);
+        ctx.stroke();
+
+        var drawBorder = function () {
+        ctx.fillStyle = 'Gray';
+        ctx.fillRect(700,0,600,10);
+        ctx.fillRect(700,200,600,10);
+        ctx.fillRect(700,0,10,200);
+        ctx.fillRect(1300,0,10,210);
+        };
+        drawBorder();
+
+        var ABC = ['А','Б','В','Г','Д','Е','Є','Ж','З','І','Ї','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ю','Я'];
+
+        function ABCInTheBorder () {
+            var step=0;
+            for ( var i =0; i<10; i++){
+                ctx.fillStyle = 'Black';
+            ctx.font = '50px Comic Sans MS';
+            ctx.fillText(ABC[i], 710 +step, 60);
+            if (trueAnswer == true && ABC[i]==letter) { 
+                ctx.strokeStyle = '#7FFF00';
+                ctx.beginPath();
+                ctx.arc(710 +step+14, 60-15  , 25, 0, Math.PI * 2);
+                ctx.stroke();
+                trueAnswer=false;
+                ctx.fillStyle = 'Black';
+            };
+            if (falseAnswer == true && ABC[i]==wrongLetter) { 
+                ctx.strokeStyle = 'Red';
+                ctx.beginPath();
+                ctx.arc(710 +step+14, 60-15  , 25, 0, Math.PI * 2);
+                ctx.stroke();
+                falseAnswer=false;
+                ctx.fillStyle = 'Black'; 
+            };
+            step +=60;
+            };
+            step=0;
+            for ( var i =10; i<20; i++){
+            ctx.font = '50px Comic Sans MS';
+            ctx.fillText(ABC[i], 710 +step, 120); 
+            if (trueAnswer == true && ABC[i]==letter) {  
+                ctx.strokeStyle = '#7FFF00';
+                ctx.beginPath();
+                ctx.arc(710 +step+14, 120-15  , 25, 0, Math.PI * 2);
+                ctx.stroke();
+                trueAnswer=false;
+                ctx.fillStyle = 'Black'; 
+            };
+            if (falseAnswer == true && ABC[i]==wrongLetter) { 
+                ctx.strokeStyle = 'Red';
+                ctx.beginPath();
+                ctx.arc(710 +step+14, 120-15  , 25, 0, Math.PI * 2);
+                ctx.stroke();
+                falseAnswer=false;
+                ctx.fillStyle = 'Black'; 
+            };
+            step +=60;
+            };
+            step=0;
+            for ( var i =20; i<30; i++){
+            ctx.font = '50px Comic Sans MS';
+            ctx.fillText(ABC[i], 710 +step, 180); 
+            if (trueAnswer == true && ABC[i]==letter) { 
+                ctx.strokeStyle = '#7FFF00';
+                ctx.beginPath();
+                ctx.arc(710 +step+14, 180-15  , 25, 0, Math.PI * 2);
+                ctx.stroke();
+                trueAnswer=false;
+                ctx.fillStyle = 'Black'; 
+            };
+            if (falseAnswer == true && ABC[i]==wrongLetter) { 
+                ctx.strokeStyle = 'Red';
+                ctx.beginPath();
+                ctx.arc(710 +step+14, 180-15  , 25, 0, Math.PI * 2);
+                ctx.stroke();
+                falseAnswer=false;
+                ctx.fillStyle = 'Black';  
+            };
+            step +=60;
+            };
+
+        };
+        ABCInTheBorder();
+
+        
+
+        function randomWordOfArray(array) {
+            var word = array[Math.floor(Math.random() * array.length)];
+            return word;
+        };
+        var randomWord = randomWordOfArray(words);
+
+        function endTheGame(array) {
+            var tmp = 0;
+            var end = false;
+            for (var i = 0; i < array.length; i++) {
+                if (array[i] == '_') {
+                    tmp++;
+                }
+            }
+            if (tmp == 0) {
+                end = true;
+            }
+            return end;
+        };
+
+
+        var word = [];
+        for (var i = 0; i < randomWord.length; i++) {
+            word.push('_');
+            
+        };
+        var end = endTheGame(word);
+
+        ctx.font = '50px Comic Sans MS';
+        ctx.fillText(word.join(' '), width / 2 +150, height / 2);
+        
+        function game() {
+            var answer = document.getElementById('answer').value;
+            answer = answer.toLowerCase();
+
+            for (var i = 0; i < word.length+1; i++) {
+                if (i==word.length){
+                    falseAnswer=true;
+                    wrongLetter=answer.toUpperCase();
+                    ABCInTheBorder();
+                    ctx.fillText(word.join(' '), width / 2 + 150, height / 2);
+                };
+
+                if (answer == randomWord[i]) {
+                    // alert('Ви вгадали букву!');
+                    
+                    word[i] = answer;
+                    letter= word[i].toUpperCase();
+                    trueAnswer = true;
+                    ABCInTheBorder();
+                    ctx.fillText(word.join(' '), width / 2 + 150, height / 2);
+                    break;
+                };
+
+            };
+            if (trueAnswer == false) {
+                ctx.font = '30px Comic Sans MS';
+                ctx.fillText(answer, falseAnswerX, falseAnswerY);
+                // ctx.strokeStyle='Red'
+                //ctx.fillText(X,falseAnswerX,falseAnswerY);
+                falseAnswerX += 30;
+                trueAnswer = false;
+            };
+            if (end == true) {
+                // alert(' Ви вгадали слово  ' + word.join('') + '!' + ' Вітаємо!');
+                ctx.fillText(word.join(' '), width / 2 + 150, height / 2);
+            };
+        };
+
+        $('#ok').click(game);
+/*                                                                   ПЛАНИ НА ГРУ
+0, ДОМАЛЮВАТИ ОБЛИЧЧЯ ЧОЛОВІЧКУ
+1.ЗРОБИТИ ЩОБ МОЖНА БУЛО ВВОДИТИ ЦІЛЕ СЛОВО , ЯКЩО АНСВЕР БІЛЬШЕ 1 ТО ПОМІСТИТИ АНСВЕР В МАСИВ , ДЕ РОЗБИТИ ЙОГО НА БУКВИ
+2, ЗРОБИТИ ПІДСКАЗКИ ДО СЛІВ З ПРАВОГО БОКУ ЕКРАНУ . ДЛЯ ЦЬОГО СТВОРИТИ ОБЄКТ З НАЗВАМИ ТВАРИН ТА ЇХНІМИ ОСОБЛИВОСТЯМИ
+3, ПРИ НЕПРАВИЛЬНІЙ ВІДПОВІДІ СТИРАТИ ЧАСТИНУ ЧОЛОВІЧКА 
+
+
+*/
+    </script>
+
+</body>
+
+</html>
