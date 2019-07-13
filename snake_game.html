@@ -10,13 +10,16 @@
 <script async>
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
+
     var width= canvas.width;
     var height=canvas.height;
+
     var score = 0;
     //                                 СТВОРЮЄМО НЕВИДИМУ СІТКУ НА КАНВАСІ , КРОК ЗМІЙКИ БУДЕ ВІДПОВІДАТИ ОДНІЙ ЯЧЕЙЦІ
-    var blockSize = 10;
+    var blockSize = 30;
     var widthInBlocks = width/blockSize;    //                                    ШИРИНА В БЛОКАХ
     var heightInBloks = height/blockSize;     //                                 ВИСОТА В БЛОКАХ
+    var animationTime=200;
 
 //                                                                                 РАМКА ДЛЯ ГРИ 
 var drawBorder = function () {
@@ -38,7 +41,7 @@ var drawScore = function(){
 
 //                                                                                             КІНЕЦЬ ГРИ
  var gameOver = function (){
-     clearInterval(intervalId);
+     clearTimeOut(setTimeOutId);
      ctx.font = '80px Comic Sans MS';
      ctx.fillStyle = 'Black';
      ctx.textAlign='center';
@@ -46,12 +49,210 @@ var drawScore = function(){
      ctx.fillText('Кінець гри!',width/2,height/2);
  };
 
+ //                                                                               конструктор блоків
+ var Block = function (col,row) {
+     this.col = col;//                                                               стовбчик
+     this.row = row;//                                                               строка
+ };
 
-drawBorder();
-drawScore();
-gameOver();
+//                                                                               малюємо квадратики
+Block.prototype.drawSquare = function (colour) {
+    var x = this.col * blockSize;
+    var y = this.row *blockSize;
+    ctx.fillStyle = colour;
+    ctx.fillRect (x,y,blockSize,blockSize);
+};
+ //                                                                                   малюємо кружечок
+ function circle(x, y, radius, fillCircle) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, Math.PI * 2, false);
+            if (fillCircle) {
+                ctx.fill();
+            } else {
+                ctx.stroke();
+            }
+        }; 
+                                                                                       
+ Block.prototype.drawCircle = function (colour) {
+     var centerX = this.col * blockSize + blockSize/2;
+     var centerY = this.row * blockSize + blockSize/2;
+     ctx.fillStyle=colour;
+     circle (centerX,centerY,blockSize/2,true);
+ };
+
+//                                                                                             перевіряємо чи два обєкта не знаходяться в одному блоці (чи змія не зїла яблуко або сама себе)  повертає тру або фолс
+Block.prototype.equal = function(otherBlock) {
+    return this.col === otherBlock.col && this.row === otherBlock.row;
+};
+//                                                                       малюємо змійку --------------------
+ var Snake = function(){
+     this.segments = [
+         new Block(7,5),
+         new Block(6,5),
+         new Block(5,5)
+     ];
+     this.direction = 'right';
+     this.nextDirection = 'right';
+ };
+ 
+ segmentsColours= [
+     {number :0,colour: '#c923dc'},
+     {number :1,colour: '#c961dc'},
+     {number :2,colour: '#c982dc'},
+     {number :3,colour: '#c98edc'},
+     {number :4,colour: '#c9a2dc'},
+     {number :5,colour:'#c9a2dc'},
+     {number :6,colour:'#c98edc'},
+     {number :7,colour:'#c982dc'},
+     {number :8,colour:'#c961dc'},
+     {number :9,colour:'#c923dc'}
+ ];
+ Snake.prototype.draw = function () {
+     for (var i=0 ; i<this.segments.length; i++) {
+         var j=i;
+         if (i >=10) { 
+            j = i - 10; 
+            };
+            if (i >=20) { 
+            j = i - 20; 
+            };
+            if (i >=30) { 
+            j = i - 30; 
+            };
+            if (i >=40) { 
+            j = i - 40; 
+            };
+            if (i >=50) { 
+            j = i - 50; 
+            };
+            if (i >=60) { 
+            j = i - 60; 
+            };
+         if (j == segmentsColours[j].number) {
+         this.segments[i].drawSquare(segmentsColours[j].colour);
+         }
+     }
+ };
+
+ //                                                                                змійка рухається
+ Snake.prototype.move = function () {
+     var head = this.segments[0];
+     var newHead;
+
+     this.direction = this.nextDirection;
+
+     if (this.direction === 'right') {
+         newHead = new Block(head.col + 1, head.row);    
+     } else if (this.direction === 'down') {
+         newHead = new Block(head.col, head.row + 1);    
+     } else if (this.direction === 'left') {
+         newHead = new Block(head.col - 1, head.row);    
+     } else if (this.direction === 'up') {
+         newHead = new Block(head.col, head.row-1);    
+     } 
+
+     if (this.checkCollision (newHead)) {
+         gameOver();
+         return;
+     }
+
+     this.segments.unshift(newHead);
+
+     if (newHead.equal(apple.position)) {
+         score ++;
+         apple.move();
+     } else {
+         this.segments.pop();
+     }
+ };
+
+ //                                                                                   метод для перевірки зіткнення змійки сама з собою або з рамкою гри
+ Snake.prototype.checkCollision = function (head) {
+     var leftCollision = (head.col ===0);
+     var topCollision = (head.row === 0);
+     var rightCollision = ( head.col === widthInBlocks-1);
+     var bottomColision = (head.row === heightInBloks-1);
+
+     var wallCollision = leftCollision || topCollision || rightCollision ||bottomColision;
+
+     var selfCollision = false;
+
+     for ( var i = 0; i < this.segments.length; i ++) {
+         if (head.equal(this.segments[i])) {
+             selfCollision = true;
+         }
+     }
+     return wallCollision || selfCollision;
+ };
+
+//                                                                                      недопустимі повороти змійки коли вона врізається сама всебе
+Snake.prototype.setDirection = function (newDirection) {
+    if (this.direction === 'up' && newDirection ==='down') {
+        return;
+    } else if (this.direction === 'right' && newDirection ==='left') {
+        return;
+    }else if (this.direction === 'down' && newDirection ==='up') {
+        return;
+    }else if (this.direction === 'left' && newDirection ==='right') {
+        return;
+    }
+
+    this.nextDirection=newDirection;//                                                      допустимий поворот змійки
+};
+ //                                                                                           створюємо яблуко
+ var Apple = function () {
+     this.position = new Block(10,10);
+ };
+
+ Apple.prototype.draw = function (){
+     this.position.drawCircle('Red');
+ };
+ //                                                                                            поява нового яблука коли старе зїдять та  збільшення швидкості
+ Apple.prototype.move = function () {
+     animationTime-=10;
+     if (animationTime <50 ) {
+         animationTime = 50;
+     };
+     var randomCol = Math.floor(Math.random() * (widthInBlocks - 2)) + 1;
+     var randomRow = Math.floor(Math.random() * (heightInBloks - 2)) + 1;
+     while(this.position !== ) {
+     this.position = new Block (randomCol,randomRow);    
+     }
+     
+ };
+
+//                                                                збираємо все до кучі
+ var snake = new Snake();
+ var apple = new Apple();
+
+ 
 
 
+ var gameLoop= function () {
+     ctx.clearRect(0,0,width,height);
+     drawScore();
+     snake.move();
+     snake.draw();
+     apple.draw();
+     drawBorder();
+     var setTimeOutId = setTimeout(gameLoop,animationTime);
+ };
+ gameLoop();
+
+ //                                                                                    керування змійкою з клавіатури
+ var directions = {
+     37 : 'left',
+     38 : 'up',
+     39 : 'right',
+     40 : 'down'
+ };
+
+ $('body').keydown(function(event){
+     var newDirection = directions[event.keyCode];
+     if (newDirection !==undefined) {
+         snake.setDirection(newDirection);
+     }
+ });
 
 
 </script>

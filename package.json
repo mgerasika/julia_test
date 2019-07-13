@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "dotnet": "^1.1.4",
     "express": "^4.16.4",
     "jshint": "^2.9.7",
     "static": "^2.0.0",
@@ -14,6 +15,7 @@
   },
   "scripts": {
     "start": "node server.js",
+    "start2":"dotnet demo.dll",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

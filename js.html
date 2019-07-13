@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>js demo</title>
+</head>
+<body>
+    <h1>js demo:)</h1>
+
+
+<script type="text/javascript" >
+class demo {
+    @action
+    x(){
+       console.log(this.getName())
+    }
+
+    getName() {
+       return arguments.callee
+    }
+
+    y(){
+
+    }
+}
+new demo().x()
+            
+</script>
+
+</body>
+</html>
+
+
