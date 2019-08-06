@@ -24,11 +24,10 @@
       var colours = ["Red", "Blue", "Green", "Yellow", "Gold"];
       var figure;
       var directions;
-      var semiRowInLine;
       var stopMoveDown = false;
 
       //                                                                                 РАМКА ДЛЯ ГРИ
-      var drawBorder = function() {
+      var drawBorder = function () {
         ctx.fillStyle = "Gray";
         ctx.fillRect(0, 0, width - 300, blockSize);
         ctx.fillRect(0, height - blockSize, width - 300, blockSize);
@@ -37,7 +36,7 @@
           width - blockSize - 300,
           0,
           blockSize - blockSize / 2,
-          height
+          height,
         );
         ctx.fillRect(width - blockSize, 0, blockSize, height);
         ctx.fillRect(0, 0, width, blockSize);
@@ -46,13 +45,13 @@
           width - blockSize - 300,
           blockSize + 300,
           width,
-          blockSize - blockSize / 2
+          blockSize - blockSize / 2,
         );
       };
 
       //                                                                  ПОКАЗ БАЛІВ
       var score = 0;
-      var drawScore = function() {
+      var drawScore = function () {
         ctx.textBaseline = "top";
         ctx.textAlign = "center";
         ctx.fillStyle = "Black";
@@ -63,13 +62,13 @@
       };
 
       //                                                                               конструктор блоків
-      var Block = function(col, row) {
+      var Block = function (col, row) {
         this.col = col; //                                                               стовбчик
         this.row = row; //                                                               строка
       };
 
       //                                                                               малюємо квадратики
-      Block.prototype.drawSquare = function(colour) {
+      Block.prototype.drawSquare = function (colour) {
         var x1 = this.col * blockSize;
         var y1 = this.row * blockSize;
         ctx.fillStyle = colour;
@@ -79,7 +78,7 @@
         ctx.strokeRect(x1, y1, blockSize, blockSize);
       };
 
-      var Figure = function() {
+      var Figure = function () {
         // this.direction = "Down";
         this.x = centerOfWidth;
         this.y = 1;
@@ -87,30 +86,30 @@
         this.randomFigure = Math.floor(Math.random() * 6);
       };
 
-      Figure.prototype.init = function() {
+      Figure.prototype.init = function () {
         if (this.randomFigure === 0) {
           this.segments = [
             new Block(this.x - 1, this.y), //                                      +++
             new Block(this.x, this.y),
-            new Block(this.x + 1, this.y)
+            new Block(this.x + 1, this.y),
           ];
         } else if (this.randomFigure === 1) {
           this.segments = [
             new Block(this.x - 1, this.y), //                                      +++
             new Block(this.x, this.y), //                                            +
             new Block(this.x + 1, this.y),
-            new Block(this.x + 1, this.y + 1)
+            new Block(this.x + 1, this.y + 1),
           ];
         } else if (this.randomFigure === 2) {
           this.segments = [
-            new Block(this.x, this.y) //                                           +
+            new Block(this.x, this.y), //                                           +
           ];
         } else if (this.randomFigure === 3) {
           this.segments = [
             new Block(this.x - 1, this.y + 1),
             new Block(this.x, this.y + 1),
             new Block(this.x + 1, this.y + 1), //                               +
-            new Block(this.x, this.y) //                                       +++
+            new Block(this.x, this.y), //                                       +++
           ];
         } else if (this.randomFigure === 4) {
           this.segments = [
@@ -118,14 +117,14 @@
             new Block(this.x, this.y + 1),
             new Block(this.x + 1, this.y + 1), //                               +
             new Block(this.x, this.y), //                                      +++
-            new Block(this.x, this.y + 2) //                                    +
+            new Block(this.x, this.y + 2), //                                    +
           ];
         } else if (this.randomFigure === 5) {
           this.segments = [
             new Block(this.x - 1, this.y),
             new Block(this.x, this.y), //                                           ++
             new Block(this.x - 1, this.y + 1), //                                   ++
-            new Block(this.x, this.y + 1)
+            new Block(this.x, this.y + 1),
           ];
         }
 
@@ -211,10 +210,8 @@
       Figure.prototype.moveLeftOfRight = function (direction) {
         if (direction === "right" && this.rightBlockCol.col < 16) {
           this.x += 1;
-        } else if (
-          direction === "left" &&
-          this.leftBlockCol.col > widthInBlocks - (widthInBlocks - 1)
-        ) {
+        } else if (this.leftBlockCol.col > widthInBlocks - (widthInBlocks - 1) &&
+          direction === "left") {
           this.x -= 1;
         }
         figure.init();
@@ -226,17 +223,17 @@
         }
       };
 
-      Figure.prototype.draw = function() {
+      Figure.prototype.draw = function () {
         for (var i = 0; i < this.segments.length; i += 1) {
           this.segments[i].drawSquare(this.colour);
         }
       };
 
-      var gameLoop = function() {
+      var gameLoop = function () {
         ctx.clearRect(0, 0, width, height);
         drawScore();
         figure.init();
-        //figure.fullLine();
+        // figure.fullLine();
         figure.moveDown();
         figure.draw();
         drawBorder();
@@ -257,7 +254,7 @@
       figure = new Figure();
       gameLoop();
 
-      $("body").keydown(function(event) {
+      $("body").keydown( function(event) {
         var direction = directions[event.keyCode];
         figure.moveLeftOfRight(direction);
         figure.fallDown(direction);
