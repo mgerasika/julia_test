@@ -1,5 +1,5 @@
 Open terminal -> Top Menu -> Terminal -> New Terminal
-Type static-server and press enter
+Type static-server and press enter on npm run start
 Open in browser http://localhost:9080
 F12 in browser to open developer toolbar
 F2 save changes

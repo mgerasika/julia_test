@@ -1,97 +1,93 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>car</title>
-</head>
-<body>
-    <h1 id='main_heading'> Вгадай хто приїде до фінішу першим! </h1>
-    <img src="road2.jpg"width = '1900', height ='300'>
-    <script src='https://code.jquery.com/jquery-2.1.0.js'></script>
-<script async>
+  </head>
 
-    var stopMoveRight=0;
-    var guess= prompt('Яка машина, на твою думку, переможе? 1 чи 2?');
-    var victory=0;
- 
-var Car = function (x, y,speed1,speed2) {
-    this.x = x;
-    this.y = y;
-    this.speed1 =speed1;
-    this.speed2 =speed2;
-};
+  <body>
+    <h1 id="main_heading">Вгадай хто приїде до фінішу першим!</h1>
+    <img src="road2.jpg" width="1900" , height="300" />
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script async type="text/javascript">
+      let stopMoveRight = 0;
+      const guess = prompt('Яка машина, на твою думку, переможе? 1 чи 2?');
+      let victory = 0;
 
-function speed () {
-    return Math.floor(Math.random()*4);
-};
-    var speed1= speed();
-    var speed2= speed();  
+      const Car = function (x, y, speed1, speed2) {
+        this.y = y;
+        this.speed1 = speed1;
+        this.speed2 = speed2;
+      };
 
-Car.prototype.draw = function () {
-    var carHtml = '<img src="car2.png">';
+      function speed() {
+        return Math.floor(Math.random() * 4);
+      }
+      let speed1 = speed();
+      let speed2 = speed();
 
-    this.carElement = $(carHtml);
+      Car.prototype.draw = function () {
+        const carHtml = '<img src="car2.png">';
 
-    this.carElement.css({
-        position: 'absolute',
-        left : this.x,
-        top : this.y,
-        width : 130,
-        height : 90
-    });
+        this.carElement = $(carHtml);
+        this.carElement.css({
+          position: 'absolute',
+          left: this.x,
+          top: this.y,
+          width: 130,
+          height: 90,
+        });
 
-    $('body').append(this.carElement);
+        $('body').append(this.carElement);
+      };
 
-};
+      Car.prototype.moveRight = function (speed12) {
+        this.x += speed12;
 
-Car.prototype.moveRight = function (speed) {
-    this.x+=speed;
+        this.carElement.css({
+          left: this.x,
+          top: this.y,
+        });
+      };
 
-    this.carElement.css ({
-        left: this.x,
-        top : this.y
-    });
-};
+      var tesla = new Car(10, 130, speed1);
+      var nisan = new Car(10, 250, speed2);
 
-var tesla = new Car(10,130,speed1);
-var nisan = new Car (10,250,speed2);
+      var carsMove = function() {
+        if (stopMoveRight <= 1100) {
+          speed1 = speed();
+          speed2 = speed();
 
-var carsMove= function () {
-    
-    if (stopMoveRight<=1100) {
+          tesla.moveRight(speed1);
+          nisan.moveRight(speed2);
 
-    speed1= speed();
-    speed2= speed();    
+          tesla.speed = speed1;
+          nisan.speed = speed2;
 
-    tesla.moveRight(speed1);
-    nisan.moveRight(speed2);
+          stopMoveRight++;
+        } else {
+          clearInterval(intervalId);
 
-    tesla.speed=speed1;
-    nisan.speed=speed2;
-    
-    stopMoveRight++;
+          if (tesla.x > nisan.x) {
+            victory = 1;
+          } else {
+            victory = 2;
+          }
 
-    }else {
-clearInterval(intervalId);
-
-if (tesla.x>nisan.x) {
-    victory=1;
-}else {
-    victory=2;}
-
-    if (guess==victory) {
-        $('#main_heading').text('Ураа!!! Ти вгадав! ' + victory + ' машина приїхала першою!');
-    }else if (guess!==victory){
-         $('#main_heading').text('Ти не вгадав! ' + victory + ' машина приїхала першою!');
-    };
-    };
-    
-};
-var intervalId = setInterval(carsMove,10);
-tesla.draw();
-nisan.draw();
-
-
-</script>
-</body>
+          if (guess == victory) {
+            $("#main_heading").text(
+              "Ураа!!! Ти вгадав! " + victory + " машина приїхала першою!"
+            );
+          } else if (guess !== victory) {
+            $("#main_heading").text(
+              "Ти не вгадав! " + victory + " машина приїхала першою!"
+            );
+          }
+        }
+      };
+      var intervalId = setInterval(carsMove, 10);
+      tesla.draw();
+      nisan.draw();
+    </script>
+  </body>
 </html>

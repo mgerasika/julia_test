@@ -7,15 +7,20 @@
     "dotnet": "^1.1.4",
     "express": "^4.16.4",
     "jshint": "^2.9.7",
+    "jslint": "^0.12.1",
     "static": "^2.0.0",
     "static-server": "^2.2.1"
   },
   "devDependencies": {
-    "@types/jquery": "^3.3.29"
+    "@types/jquery": "^3.3.29",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.18.0"
   },
   "scripts": {
     "start": "node server.js",
-    "start2":"dotnet demo.dll",
+    "start2": "dotnet demo.dll",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

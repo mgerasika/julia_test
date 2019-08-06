@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>тетріс</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="1200" height="1200"> </canvas>
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script async>
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+
+      var { width, height } = canvas;
+      var figures = [];
+
+      //                                 СТВОРЮЄМО НЕВИДИМУ СІТКУ НА КАНВАСІ
+      var blockSize = 50;
+      var widthInBlocks = width / blockSize; //                                    ШИРИНА В БЛОКАХ
+      var heightInBloks = height / blockSize; //                                 ВИСОТА В БЛОКАХ
+      var centerOfWidth = widthInBlocks / 2 - 3;
+      var clearTimeoutIndex = 0;
+      var animationTime = 200;
+      var colours = ["Red", "Blue", "Green", "Yellow", "Gold"];
+      var figure;
+      var directions;
+      var semiRowInLine;
+      var stopMoveDown = false;
+
+      //                                                                                 РАМКА ДЛЯ ГРИ
+      var drawBorder = function() {
+        ctx.fillStyle = "Gray";
+        ctx.fillRect(0, 0, width - 300, blockSize);
+        ctx.fillRect(0, height - blockSize, width - 300, blockSize);
+        ctx.fillRect(0, 0, blockSize, height);
+        ctx.fillRect(
+          width - blockSize - 300,
+          0,
+          blockSize - blockSize / 2,
+          height
+        );
+        ctx.fillRect(width - blockSize, 0, blockSize, height);
+        ctx.fillRect(0, 0, width, blockSize);
+        ctx.fillRect(0, height - blockSize, width, blockSize);
+        ctx.fillRect(
+          width - blockSize - 300,
+          blockSize + 300,
+          width,
+          blockSize - blockSize / 2
+        );
+      };
+
+      //                                                                  ПОКАЗ БАЛІВ
+      var score = 0;
+      var drawScore = function() {
+        ctx.textBaseline = "top";
+        ctx.textAlign = "center";
+        ctx.fillStyle = "Black";
+        ctx.font = "80px Comic Sans MS";
+        ctx.fillText("Бали ", width - 160, blockSize);
+        ctx.font = "100px Comic Sans MS";
+        ctx.fillText(score, width - 180, blockSize + 130);
+      };
+
+      //                                                                               конструктор блоків
+      var Block = function(col, row) {
+        this.col = col; //                                                               стовбчик
+        this.row = row; //                                                               строка
+      };
+
+      //                                                                               малюємо квадратики
+      Block.prototype.drawSquare = function(colour) {
+        var x1 = this.col * blockSize;
+        var y1 = this.row * blockSize;
+        ctx.fillStyle = colour;
+        ctx.fillRect(x1, y1, blockSize, blockSize);
+        ctx.lineWidth = 3;
+        ctx.fillStyle = "#696969";
+        ctx.strokeRect(x1, y1, blockSize, blockSize);
+      };
+
+      var Figure = function() {
+        // this.direction = "Down";
+        this.x = centerOfWidth;
+        this.y = 1;
+        this.colour = colours[Math.floor(Math.random() * colours.length)];
+        this.randomFigure = Math.floor(Math.random() * 6);
+      };
+
+      Figure.prototype.init = function() {
+        if (this.randomFigure === 0) {
+          this.segments = [
+            new Block(this.x - 1, this.y), //                                      +++
+            new Block(this.x, this.y),
+            new Block(this.x + 1, this.y)
+          ];
+        } else if (this.randomFigure === 1) {
+          this.segments = [
+            new Block(this.x - 1, this.y), //                                      +++
+            new Block(this.x, this.y), //                                            +
+            new Block(this.x + 1, this.y),
+            new Block(this.x + 1, this.y + 1)
+          ];
+        } else if (this.randomFigure === 2) {
+          this.segments = [
+            new Block(this.x, this.y) //                                           +
+          ];
+        } else if (this.randomFigure === 3) {
+          this.segments = [
+            new Block(this.x - 1, this.y + 1),
+            new Block(this.x, this.y + 1),
+            new Block(this.x + 1, this.y + 1), //                               +
+            new Block(this.x, this.y) //                                       +++
+          ];
+        } else if (this.randomFigure === 4) {
+          this.segments = [
+            new Block(this.x - 1, this.y + 1),
+            new Block(this.x, this.y + 1),
+            new Block(this.x + 1, this.y + 1), //                               +
+            new Block(this.x, this.y), //                                      +++
+            new Block(this.x, this.y + 2) //                                    +
+          ];
+        } else if (this.randomFigure === 5) {
+          this.segments = [
+            new Block(this.x - 1, this.y),
+            new Block(this.x, this.y), //                                           ++
+            new Block(this.x - 1, this.y + 1), //                                   ++
+            new Block(this.x, this.y + 1)
+          ];
+        }
+
+        if (this.segments.length === 1) {
+          [this.bottomBlockRow] = this.segments;
+          [this.rightBlockCol] = this.segments;
+          [this.leftBlockCol] = this.segments;
+        } else {
+          [this.bottomBlockRow] = this.segments; // this.bottomBlockRow = this.segments[0]
+          for (var i = 1; i < this.segments.length; i += 1) {
+            if (this.segments[i].row > this.segments[i - 1].row) {
+              // знаходимо найнижчу частину фігури
+              this.bottomBlockRow = this.segments[i];
+            }
+          }
+
+          [this.rightBlockCol] = this.segments;
+          for (var j = 1; j < this.segments.length; j += 1) {
+            if (this.segments[j].col > this.segments[j - 1].col) {
+              // знаходимо най правішу частину фігури
+              this.rightBlockCol = this.segments[j];
+            }
+          }
+
+          [this.leftBlockCol] = this.segments;
+          for (var l = 1; l < this.segments.length; l += 1) {
+            if (this.segments[l].col < this.segments[l - 1].col) {
+              // знаходимо най лівішу частину фігури
+              this.leftBlockCol = this.segments[l];
+            }
+          }
+
+          [this.topBlockRow] = this.segments;
+          for (var p = 1; p < this.segments.length; p += 1) {
+            if (this.segments[p].row < this.segments[p - 1].row) {
+              // знаходимо най вищу частину фігури
+              this.topBlockRow = this.segments[p];
+            }
+          }
+        }
+      };
+
+      Figure.prototype.changeBlocks = function (direction) {
+        if (direction === "up") {
+          for (var y = 0; y < this.segments.length; y += 1) {
+            var COL = this.segments[y].col;
+            var ROW = this.segments[y].row;
+            this.segments[y].col = ROW;
+            this.segments[y].row = COL;
+          }
+        }
+      };
+
+     /* Figure.prototype.fullLine = function () {
+        for (var i = 0; i < this.segments.length; i += 1) {
+    semiRowInLine = 0;
+    if (this.segments[i].row === this.segments[i + 1].row) {
+            semiRowInLine += 1;
+    }
+    console.log(semiRowInLine);
+  }
+      };*/
+
+      Figure.prototype.moveDown = function () {
+        this.y += 1;
+        for (var i = 0; i < figures.length; i += 1) {
+    if (figures[i].x === this.x && figures[i].y === this.y + 1) {
+            this.y -= 1;
+            stopMoveDown = true;
+    }
+        }
+        if (this.bottomBlockRow.row === heightInBloks - 2 || stopMoveDown) {
+          clearTimeout(clearTimeoutIndex);
+          animationTime = 200;
+          figures.push(figure);
+    console.log(figures);
+          figure = new Figure();
+          figure.init();
+          stopMoveDown = false;
+        }
+      };
+
+      Figure.prototype.moveLeftOfRight = function (direction) {
+        if (direction === "right" && this.rightBlockCol.col < 16) {
+          this.x += 1;
+        } else if (
+          direction === "left" &&
+          this.leftBlockCol.col > widthInBlocks - (widthInBlocks - 1)
+        ) {
+          this.x -= 1;
+        }
+        figure.init();
+      };
+
+      Figure.prototype.fallDown = function (direction) {
+        if (direction === "down") {
+          animationTime -= 150;
+        }
+      };
+
+      Figure.prototype.draw = function() {
+        for (var i = 0; i < this.segments.length; i += 1) {
+          this.segments[i].drawSquare(this.colour);
+        }
+      };
+
+      var gameLoop = function() {
+        ctx.clearRect(0, 0, width, height);
+        drawScore();
+        figure.init();
+        //figure.fullLine();
+        figure.moveDown();
+        figure.draw();
+        drawBorder();
+        clearTimeoutIndex = setTimeout(gameLoop, animationTime);
+
+        for (var i = 0; i < figures.length; i += 1) {
+          figures[i].draw();
+        }
+      };
+
+      directions = {
+        37: "left",
+        38: "up",
+        39: "right",
+        40: "down",
+      };
+
+      figure = new Figure();
+      gameLoop();
+
+      $("body").keydown(function(event) {
+        var direction = directions[event.keyCode];
+        figure.moveLeftOfRight(direction);
+        figure.fallDown(direction);
+        figure.changeBlocks(direction);
+      });
+    </script>
+  </body>
+</html>
